@@ -9,7 +9,7 @@ export const Footer = () => {
         <footer>
           <Navbar>
             <Container>
-              <Link to="/">
+              <Link to="/homepage">
                 <Navbar.Brand className="fw-bold fs-5 text-white">Happy App</Navbar.Brand>
               </Link>
               <Navbar.Toggle />

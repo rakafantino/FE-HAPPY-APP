@@ -7,7 +7,7 @@ function NavBar() {
     <>
       <Nav className="justify-content-evenly mt-4 border container py-2" activeKey="/">
         <Nav.Item>
-          <Link to="/" className="text-decoration-none">
+          <Link to="/homepage" className="text-decoration-none">
             Community
           </Link>
         </Nav.Item>

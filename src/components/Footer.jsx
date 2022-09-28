@@ -8,7 +8,7 @@ export const Footer = () => {
         <footer>
           <Navbar>
             <Container>
-              <Navbar.Brand href="/" className="fw-bold fs-5 text-white">
+              <Navbar.Brand href="/homepage" className="fw-bold fs-5 text-white">
                 Happy App
               </Navbar.Brand>
               <Navbar.Toggle />

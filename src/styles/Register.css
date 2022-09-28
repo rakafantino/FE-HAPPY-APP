@@ -1,0 +1,24 @@
+.contlog {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.rowreg {
+    align-content: center;
+    align-items: center;
+}
+
+.colreg2 h1 {
+    margin-bottom: 50px;
+    color:cornflowerblue
+}
+
+.logbtn {
+    width: 100px;
+    margin-top: 15px;
+}
+
+.dropreg {
+    margin-bottom: 3px;
+    width: 500px;
+}

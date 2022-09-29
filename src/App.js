@@ -9,6 +9,7 @@ import DetailEvent from "./pages/DetailEvent";
 import DetailProduct from "./pages/DetailProduct";
 import CommunityEvent from "./pages/CommunityEvent";
 import CommunityStore from "./pages/CommunityStore";
+import HistoryOrder from "./pages/HistoryOrder";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/community/feed" element={<CommunityDetail />} />
         <Route path="/community/event" element={<CommunityEvent />} />
         <Route path="/community/store" element={<CommunityStore />} />
+        <Route path="/community/historyorder" element={<HistoryOrder />} />
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />
         <Route path="/detailproduct" element={<DetailProduct />} />

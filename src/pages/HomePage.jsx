@@ -28,7 +28,6 @@ function HomePage() {
             </Card.Body>
             <Card.Footer className="text-center text-md-end">Jumlah Anggota: 28</Card.Footer>
           </Card>
-
           <Card className="text-center mt-3 shadow " onClick={() => handleDetailCommunity()}>
             <Card.Header className="fw-bold fs-5 bg-primary text-white">Community Title</Card.Header>
             <Card.Body className="d-flex">

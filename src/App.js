@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import CommunityDetail from "./pages/CommunityDetail";
 import EventList from "./pages/EventList";
 import DetailEvent from "./pages/DetailEvent"
+import DetailProduct from './pages/DetailProduct'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/:id" element={<CommunityDetail />} />
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />
+        <Route path="/detailproduct" element={<DetailProduct />} />
       </Routes>
     </Router>
   );

@@ -10,7 +10,7 @@ export const TopNav = () => {
       <Container fluid className="g-0 shadow">
         <Navbar expand="lg" className="bg-primary">
           <Container>
-            <Navbar.Brand href="homepage" className="fw-bold fs-5 text-white">
+            <Navbar.Brand href="community" className="fw-bold fs-5 text-white">
               Happy App
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />

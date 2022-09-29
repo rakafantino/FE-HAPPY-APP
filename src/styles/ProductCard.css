@@ -1,0 +1,17 @@
+.divpc {
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 200px; */
+}
+
+.cardpc1 {
+    width: 200px;
+    height: 280px;
+    margin: 20px;
+    background-color:rgb(168, 212, 255);
+}
+
+.cardimgpc1 {
+    width: 200px;
+    height: 200px;
+}

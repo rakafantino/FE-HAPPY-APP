@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
+import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
-import { useNavigate } from "react-router-dom";
-import "../styles/HomePage.css";
 
 function HistoryOrder() {
   const [showMember, setShowMember] = useState(false);

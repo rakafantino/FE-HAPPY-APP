@@ -1,15 +1,16 @@
-import React from 'react';
-import { Card, Container, Stack } from 'react-bootstrap';
-import { Footer } from '../components/Footer';
-import NavBar from '../components/NavBar';
-import { TopNav } from '../components/TopNav';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Card, Container, Stack } from "react-bootstrap";
+import { Footer } from "../components/Footer";
+import NavBar from "../components/NavBar";
+import { TopNav } from "../components/TopNav";
+import { useNavigate } from "react-router-dom";
+import "../styles/HomePage.css";
 
 function EventList() {
   const navigate = useNavigate();
 
   const handleDetailEvent = () => {
-    navigate('/detailevent');
+    navigate("/detailevent");
   };
 
   return (
@@ -19,7 +20,7 @@ function EventList() {
       <Container className="min-vh-100">
         <main>
           <h3 className="text-center mt-3">Event List</h3>
-          <Card className="text-center mt-3 shadow" onClick={() => handleDetailEvent()}>
+          <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()}>
             <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
             <Card.Body className="d-flex">
               <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
@@ -33,7 +34,7 @@ function EventList() {
               </Stack>
             </Card.Body>
           </Card>
-          <Card className="text-center mt-3 shadow" onClick={() => handleDetailEvent()}>
+          <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()}>
             <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
             <Card.Body className="d-flex">
               <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />

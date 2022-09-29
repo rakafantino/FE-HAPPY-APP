@@ -12,7 +12,7 @@ function CommunityNavbar() {
       </Nav.Item>
       <div className="vr" />
       <Nav.Item>
-        <Link to="/:id" className="text-decoration-none">
+        <Link to="/community/feed" className="text-decoration-none">
           Feed
         </Link>
       </Nav.Item>

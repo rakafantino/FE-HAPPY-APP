@@ -10,7 +10,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleDetailCommunity = () => {
-    navigate("/1");
+    navigate("/community/feed");
   };
   return (
     <>

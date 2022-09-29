@@ -1,7 +1,7 @@
-import React from 'react';
-import '../styles/Login.css';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React from "react";
+import "../styles/Login.css";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Login = () => {
   return (
@@ -9,7 +9,7 @@ const Login = () => {
       <Row className="rowlog">
         <Col lg={{ span: 7, offset: 0 }}>
           <div href="#">
-            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className='imglog' alt="logo" />
+            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className="imglog" alt="logo" />
           </div>
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="collog2">
@@ -25,9 +25,11 @@ const Login = () => {
             </Form.Group>
           </Form>
           <div>
-          Don't have an account? <Link to="/register">Register</Link>
+            Don't have an account? <Link to="/register">Register</Link>
           </div>
-          <Link to="/homepage"><Button className="logbtn">LOGIN</Button></Link>
+          <Link to="/community">
+            <Button className="logbtn">LOGIN</Button>
+          </Link>
         </Col>
       </Row>
     </Container>

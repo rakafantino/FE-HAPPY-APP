@@ -2,12 +2,65 @@ import React from 'react';
 import '../styles/DetailEvent.css';
 import { BsCalendar2Date } from 'react-icons/bs';
 import { BiTime } from 'react-icons/bi';
-import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup, Button, Form } from 'react-bootstrap';
 import HeadEvent from '../components/HeadEvent';
 import { TopNav } from '../components/TopNav';
 import { Footer } from '../components/Footer';
+import Modal from 'react-bootstrap/Modal';
+
+function CenteredModal(props) {
+  return (
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Payment Method</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+      {['radio'].map((type) => (
+        <div key={`payments-${type}`} className="mb-3">
+          <Form.Check
+            label="GOPAY"
+            name="group1"
+            type={type}
+            id={`payments-${type}-1`}
+          />
+          <Form.Check
+            label="BCA Virtual Account"
+            name="group1"
+            type={type}
+            id={`payments-${type}-2`}
+          />
+                    <Form.Check
+            label="Mandiri Virtual Account"
+            name="group1"
+            type={type}
+            id={`payments-${type}-2`}
+          />
+        </div>
+      ))}
+    </Form>
+      </Modal.Body>
+      <Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter">Review Order</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h6>
+          Total Item : <span>1</span>
+        </h6>
+        <h6>
+          Total Price : <span>Rp 123</span>
+        </h6>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Confirm</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 const DetailEvent = () => {
+  const [modalShow, setModalShow] = React.useState(false);
+
   return (
     <>
       <TopNav />
@@ -35,11 +88,18 @@ const DetailEvent = () => {
           </Col>
           <Col>
             <ListGroup>
-              <ListGroup.Item>Total Participants : <span>80</span></ListGroup.Item>
-              <ListGroup.Item>Price : <span>Rp 123</span></ListGroup.Item>
+              <ListGroup.Item>
+                Total Participants : <span>80</span>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Price : <span>Rp 123</span>
+              </ListGroup.Item>
             </ListGroup>
-            <Button className="mt-3">Join Event</Button>
+            <Button className="mt-3" onClick={() => setModalShow(true)}>
+              Join Event
+            </Button>
           </Col>
+          <CenteredModal show={modalShow} onHide={() => setModalShow(false)} />
         </Row>
       </Container>
       <Footer />

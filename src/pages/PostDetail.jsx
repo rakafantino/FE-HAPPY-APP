@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";

@@ -17,11 +17,11 @@ export const TopNav = () => {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
-              <Form className="ms-auto mt-lg-0 mt-2">
-                <Form.Control type="search" placeholder="Search" aria-label="Search" xs={7} />
+              <Form className="ms-auto mt-lg-0 mt-2 w-75 mx-auto">
+                <Form.Control type="search" placeholder="Search" aria-label="Search" className="" />
                 <Button variant="outline-success d-none">Search</Button>
               </Form>
-              <Nav className="my-2 my-lg-0 ms-auto" style={{ maxHeight: "100px" }} navbarScroll>
+              <Nav className="my-2 my-lg-0 ms-auto py-3" style={{ maxHeight: "100px" }} navbarScroll>
                 <Link to="/profile" className="text-white text-center">
                   <FontAwesomeIcon icon={faCircleUser} size="2x" bounce />
                 </Link>

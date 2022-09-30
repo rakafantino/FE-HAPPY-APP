@@ -37,7 +37,7 @@ const Login = () => {
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
           </Form>
-          <Link to="/homepage"><Button className="logbtn">SIGN UP</Button></Link>
+          <Link to="/community"><Button className="logbtn">SIGN UP</Button></Link>
         </Col>
       </Row>
     </Container>

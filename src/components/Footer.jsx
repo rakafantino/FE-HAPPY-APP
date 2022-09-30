@@ -1,6 +1,6 @@
-import React from "react";
-import { Container, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Container, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -9,7 +9,7 @@ export const Footer = () => {
         <footer>
           <Navbar>
             <Container>
-              <Link to="/homepage">
+              <Link to="/community">
                 <Navbar.Brand className="fw-bold fs-5 text-white">Happy App</Navbar.Brand>
               </Link>
               <Navbar.Toggle />

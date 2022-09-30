@@ -4,7 +4,7 @@ import ProductCard from '../components/ProductCard';
 import { Footer } from '../components/Footer';
 import CommunityNavbar from '../components/CommunityNavbar';
 import HeaderCommunity from '../components/HeaderCommunity';
-import { Button, Card, Container, Modal } from 'react-bootstrap';
+import { Button, Container, Modal } from 'react-bootstrap';
 
 const CommunityStore = () => {
   const [showMember, setShowMember] = useState(false);

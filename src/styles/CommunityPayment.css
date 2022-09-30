@@ -1,0 +1,29 @@
+.contpay {
+    height: 100vh;
+    padding-bottom: 1000px;
+}
+
+.btnconfirmpayment {
+  float: right;
+  margin-right: 30px;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  width: 90px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.btncancelpayment {
+  float: right;
+  margin-right: 30px;
+  margin-top: 45px;
+  width: 90px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}

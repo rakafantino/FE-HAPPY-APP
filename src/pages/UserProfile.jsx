@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Container, Form, Image, Modal, Row, Stack, Table } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Form, Image, Modal, Row, Stack, Table } from "react-bootstrap";
 
 function UserProfile() {
   const [editProfile, setEditProfile] = useState(false);
   const [showCreateCommunity, setShowCreateCommunity] = useState(false);
   const [showEditCommunity, setShowEditCommunity] = useState(false);
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false);
   const handleCloseEdit = () => setEditProfile(false);
   const handleShowEdit = () => setEditProfile(true);
   const handleCloseCreate = () => setShowCreateCommunity(false);
   const handleShowCreate = () => setShowCreateCommunity(true);
   const handleCloseEditCommunity = () => setShowEditCommunity(false);
   const handleShowEditCommunity = () => setShowEditCommunity(true);
+  const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
+  const handleShowDeleteAccount = () => setShowDeleteAccount(true);
   return (
     <>
       <Card className="text-center h-75 shadow-sm">
@@ -41,7 +44,7 @@ function UserProfile() {
                 <Button size="sm" className="w-50" onClick={handleShowEdit}>
                   Edit Profile
                 </Button>
-                <Button size="sm" variant="danger" className="w-50">
+                <Button size="sm" variant="danger" className="w-50" onClick={handleShowDeleteAccount}>
                   Delete Account
                 </Button>
               </Stack>
@@ -197,6 +200,26 @@ function UserProfile() {
         </Modal.Footer>
       </Modal>
       {/* End Modal Edit Community */}
+
+      {/* Start Modal Delete Account */}
+      <Modal show={showDeleteAccount} onHide={handleCloseDeleteAccount}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are You Sure Want To Delete this Account ?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert variant={"danger"}>This Account Will Deleted Permanently !</Alert>
+          If You Sure Click Yes.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDeleteAccount}>
+            Never Mind
+          </Button>
+          <Button variant="primary" onClick={handleCloseDeleteAccount}>
+            YES !
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* End Modal Delete Account */}
     </>
   );
 }

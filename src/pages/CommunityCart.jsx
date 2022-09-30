@@ -3,12 +3,18 @@ import '../styles/Cart.css';
 import { Button, Card, Container, Modal, Stack } from 'react-bootstrap';
 import CommunityNavbar from '../components/CommunityNavbar';
 import { Footer } from '../components/Footer';
+import { useNavigate } from "react-router-dom";
 import HeaderCommunity from '../components/HeaderCommunity';
 
-const Cart = () => {
+const CommunityCart = () => {
   const [showMember, setShowMember] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate("/community/payment");
+  };
 
   return (
     <>
@@ -37,7 +43,7 @@ const Cart = () => {
           </Card.Body>
         </Card>
         <p className="pcart">Total Price : Rp 123</p>
-        <Button className="float-end mt-1">Checkout</Button>
+        <Button className="float-end mt-1" onClick={handleCheckout}>Checkout</Button>
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>
@@ -60,4 +66,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CommunityCart;

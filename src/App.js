@@ -10,7 +10,8 @@ import DetailProduct from "./pages/DetailProduct";
 import CommunityEvent from "./pages/CommunityEvent";
 import CommunityStore from "./pages/CommunityStore";
 import HistoryOrder from "./pages/HistoryOrder";
-import Cart from './pages/Cart'
+import CommunityCart from "./pages/CommunityCart";
+import CommunityPayment from "./pages/CommunityPayment";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
         <Route path="/community/feed" element={<CommunityDetail />} />
         <Route path="/community/event" element={<CommunityEvent />} />
         <Route path="/community/store" element={<CommunityStore />} />
-        <Route path="/community/cart" element={<Cart />} />
+        <Route path="/community/cart" element={<CommunityCart />} />
+        <Route path="/community/payment" element={<CommunityPayment />} />
         <Route path="/community/historyorder" element={<HistoryOrder />} />
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />

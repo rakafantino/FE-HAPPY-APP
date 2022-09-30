@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { Button, Card, Container, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
+import "../styles/HomePage.css";
 
 function CommunityDetail() {
   const [showMember, setShowMember] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
+
+  const navigate = useNavigate();
+
+  const handleDetailPost = () => {
+    navigate("/community/postdetail");
+  };
   return (
     <>
       <HeaderCommunity handleShow={handleShow} />
@@ -25,7 +33,7 @@ function CommunityDetail() {
             </Button>
           </Card.Body>
         </Card>
-        <Card className="px-3 my-3">
+        <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
           <Card.Header as="h5">
             Raka <span className="float-end fw-regular fs-5">Jum'at, 99 Desember 2022</span>
           </Card.Header>
@@ -37,7 +45,7 @@ function CommunityDetail() {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card className="px-3">
+        <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
           <Card.Header as="h5">
             Doffa <span className="float-end fw-regular fs-5">Sabtu, 30 Februari 2023</span>
           </Card.Header>

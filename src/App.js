@@ -13,6 +13,7 @@ import HistoryOrder from "./pages/HistoryOrder";
 import CommunityCart from "./pages/CommunityCart";
 import CommunityPayment from "./pages/CommunityPayment";
 import PostDetail from "./pages/PostDetail";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/community/payment" element={<CommunityPayment />} />
         <Route path="/community/historyorder" element={<HistoryOrder />} />
         <Route path="/community/postdetail" element={<PostDetail />} />
+        <Route path="/profile" element={<UserProfile />} />
+
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />
         <Route path="/detailproduct" element={<DetailProduct />} />

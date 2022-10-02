@@ -1,9 +1,51 @@
-import React from "react";
-import "../styles/Login.css";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import React, { useState } from 'react';
+import '../styles/Login.css';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [cookies, setCookies] = useCookies();
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const submitLogin = async () => {
+    console.log(email, password);
+
+    await axios
+      .post(
+        'https://tugas.website/login',
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then(function (response) {
+        setCookies('token', response.data.data, '/community');
+        console.log(response.data);
+        navigate('/community');
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
+      });
+  };
+
   return (
     <Container className="contlog">
       <Row className="rowlog">
@@ -17,19 +59,19 @@ const Login = () => {
           <Form>
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" value={email} onChange={(value) => handleEmail(value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" value={password} onChange={(value) => handlePassword(value)} />
             </Form.Group>
           </Form>
           <div>
             Don't have an account? <Link to="/register">Register</Link>
           </div>
-          <Link to="/community">
-            <Button className="logbtn">LOGIN</Button>
-          </Link>
+          <Button className="logbtn" onClick={() => submitLogin()}>
+            LOGIN
+          </Button>
         </Col>
       </Row>
     </Container>

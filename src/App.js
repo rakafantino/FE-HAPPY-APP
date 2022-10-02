@@ -30,7 +30,6 @@ function App() {
         <Route path="/community/historyorder" element={<HistoryOrder />} />
         <Route path="/community/postdetail" element={<PostDetail />} />
         <Route path="/profile" element={<UserProfile />} />
-
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />
         <Route path="/detailproduct" element={<DetailProduct />} />

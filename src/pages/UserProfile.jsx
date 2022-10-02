@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Container, Form, Image, Modal, Row, Stack, Table } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function UserProfile() {
   const [editProfile, setEditProfile] = useState(false);
@@ -14,6 +17,43 @@ function UserProfile() {
   const handleShowEditCommunity = () => setShowEditCommunity(true);
   const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
   const handleShowDeleteAccount = () => setShowDeleteAccount(true);
+
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    getUserProfle();
+  }, []);
+
+  const getUserProfle = () => {
+    axios
+      .get("https://tugas.website/user/profile", {
+        headers: { Authorization: "Bearer " + Cookies.get("token") },
+      })
+      .then((response) => {
+        setUserData(response.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleDeleteUser = (item) => {
+    axios
+      .delete(`https://tugas.website/user/profile`, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        handleCloseDeleteAccount();
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <>
       <Card className="text-center h-75 shadow-sm">
@@ -21,22 +61,24 @@ function UserProfile() {
         <Card.Body>
           <Row>
             <Col md={4} xs="auto">
-              <Image src="https://picsum.photos/200/200" className="img-fluid rounded-circle" />
+              <Image src={userData.photo} className="img-fluid rounded-circle" style={{ width: "12.5rem", height: "auto" }} />
             </Col>
             <Col md={4} xs="auto" className="d-flex justify-content-center">
-              <Table className="text-start  w-50">
-                <tr>
-                  <td className="py-3 fw-semibold">Name:</td>
-                  <td className="ps-3">Jhon Doe</td>
-                </tr>
-                <tr>
-                  <td className="py-3 fw-semibold">Username:</td>
-                  <td className="ps-3">jhondoe</td>
-                </tr>
-                <tr>
-                  <td className="py-3 fw-semibold">Email:</td>
-                  <td className="ps-3">jhondoe@gmail.com</td>
-                </tr>
+              <Table className="text-start ">
+                <tbody style={{ borderCollapse: "collapse" }}>
+                  <tr>
+                    <td className="fw-semibold">Name:</td>
+                    <td className="ps-3">{userData.name}</td>
+                  </tr>
+                  <tr>
+                    <td className=" fw-semibold">Username:</td>
+                    <td className="ps-3">{userData.username}</td>
+                  </tr>
+                  <tr>
+                    <td className=" fw-semibold">Email:</td>
+                    <td className="ps-3">{userData.email}</td>
+                  </tr>
+                </tbody>
               </Table>
             </Col>
             <Col md={4} xs="auto">
@@ -214,7 +256,7 @@ function UserProfile() {
           <Button variant="secondary" onClick={handleCloseDeleteAccount}>
             Never Mind
           </Button>
-          <Button variant="primary" onClick={handleCloseDeleteAccount}>
+          <Button variant="danger" onClick={handleDeleteUser}>
             YES !
           </Button>
         </Modal.Footer>

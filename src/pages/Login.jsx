@@ -1,51 +1,30 @@
-import React, { useState } from 'react';
-import '../styles/Login.css';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import axios from "axios";
+import cookie from "js-cookie";
+import React, { useState } from "react";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cookies, setCookies] = useCookies();
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const submitLogin = async () => {
-    console.log(email, password);
-
     await axios
-      .post(
-        'https://tugas.website/login',
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      .post("https://tugas.website/login", {
+        email,
+        password,
+      })
       .then(function (response) {
-        setCookies('token', response.data.data, '/community');
-        console.log(response.data);
-        navigate('/community');
+        cookie.set("token", response.data.access_token);
+        navigate("/community");
       })
       .catch(function (error) {
-        console.log(error.response.data);
+        setError(error.response.data.message);
       });
   };
-
   return (
     <Container className="contlog">
       <Row className="rowlog">
@@ -56,20 +35,22 @@ const Login = () => {
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="collog2">
           <h1>Welcome to Happy App!</h1>
+          {error ?? <Alert variant={"danger"}>{error}</Alert>}
           <Form>
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" value={email} onChange={(value) => handleEmail(value)} />
+              <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={password} onChange={(value) => handlePassword(value)} />
+              <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
           </Form>
+
           <div>
             Don't have an account? <Link to="/register">Register</Link>
           </div>
-          <Button className="logbtn" onClick={() => submitLogin()}>
+          <Button className="logbtn" button="submit" onClick={() => submitLogin()}>
             LOGIN
           </Button>
         </Col>

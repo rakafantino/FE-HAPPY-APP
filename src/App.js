@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import HomePage from "./pages/HomePage";
+import CommunityCart from "./pages/CommunityCart";
 import CommunityDetail from "./pages/CommunityDetail";
-import EventList from "./pages/EventList";
+import CommunityEvent from "./pages/CommunityEvent";
+import CommunityPayment from "./pages/CommunityPayment";
+import CommunityStore from "./pages/CommunityStore";
 import DetailEvent from "./pages/DetailEvent";
 import DetailProduct from "./pages/DetailProduct";
-import CommunityEvent from "./pages/CommunityEvent";
-import CommunityStore from "./pages/CommunityStore";
+import EventList from "./pages/EventList";
 import HistoryOrder from "./pages/HistoryOrder";
-import CommunityCart from "./pages/CommunityCart";
-import CommunityPayment from "./pages/CommunityPayment";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
 import PostDetail from "./pages/PostDetail";
+import Register from "./pages/Register";
 import UserProfile from "./pages/UserProfile";
 
 function App() {

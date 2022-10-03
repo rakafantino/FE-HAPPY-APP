@@ -11,6 +11,8 @@ function UserProfile() {
   const [showEditCommunity, setShowEditCommunity] = useState(false);
   const [showDeleteAccount, setShowDeleteAccount] = useState(false);
   const [userData, setUserData] = useState({});
+  const [userCommunities, setUserCommunities] = useState([]);
+  const [getCommunityId, setGetCommunityId] = useState("");
   // buka tutup Modal
   const handleCloseEdit = () => setEditProfile(false);
   const handleShowEdit = () => setEditProfile(true);
@@ -31,6 +33,12 @@ function UserProfile() {
   });
   const navigate = useNavigate();
 
+  const [communityData, setCommunityData] = useState({
+    title: "",
+    descriptions: "",
+    logo: "",
+  });
+
   const handleRedirect = () => {
     navigate("/");
   };
@@ -47,6 +55,7 @@ function UserProfile() {
       })
       .then((response) => {
         setUserData(response.data.data);
+        setUserCommunities(response.data.data.community);
       })
       .catch((err) => {
         console.error(err);
@@ -109,6 +118,58 @@ function UserProfile() {
     navigate("/");
   };
 
+  const handleCreateCommunity = () => {
+    const { title, descriptions, logo } = communityData;
+    axios
+      .post(
+        "https://tugas.website/community",
+        {
+          title,
+          descriptions,
+          logo,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        setShowCreateCommunity(false);
+        getUserProfle();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleEditCommunity = () => {
+    const { title, descriptions, logo } = communityData;
+    axios
+      .put(
+        `https://tugas.website/community/${getCommunityId}`,
+        {
+          title,
+          descriptions,
+          logo,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        setShowEditCommunity(false);
+        getUserProfle();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <>
       {isLogedIn ? (
@@ -119,7 +180,7 @@ function UserProfile() {
             <Card.Body>
               <Row>
                 <Col md={4} xs="auto">
-                  <Image src={userData.photo} className="img-fluid rounded-circle" style={{ width: "12.5rem", height: "auto" }} />
+                  <Image src={userData.photo} className="img-fluid rounded-circle overflow-hidden" style={{ width: "12.5rem", height: "auto" }} />
                 </Col>
                 <Col md={4} xs="auto" className="d-flex justify-content-center">
                   <Table className="text-start ">
@@ -167,36 +228,33 @@ function UserProfile() {
               </Col>
             </Row>
             <Row className="d-flex flex-column">
-              <Col>
-                <Card className="text-center mt-3 shadow hover">
-                  <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
-                  <Card.Body className="d-flex">
-                    <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
-                    <Stack className="gap-2">
-                      <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">Community Name</Card.Text>
-                    </Stack>
-                    <Button size="sm" className="float-end w-25 h-25 my-auto" onClick={() => handleShowEditCommunity()}>
-                      Edit Community
-                    </Button>
-                  </Card.Body>
-                  <Card.Footer className="text-center text-md-end">Jumlah Anggota: 28</Card.Footer>
-                </Card>
-              </Col>
-              <Col>
-                <Card className="text-center mt-3 shadow hover">
-                  <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
-                  <Card.Body className="d-flex">
-                    <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
-                    <Stack className="gap-2">
-                      <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">Community Name</Card.Text>
-                    </Stack>
-                    <Button size="sm" className="float-end w-25 h-25 my-auto">
-                      Edit Community
-                    </Button>
-                  </Card.Body>
-                  <Card.Footer className="text-center text-md-end">Jumlah Anggota: 28</Card.Footer>
-                </Card>
-              </Col>
+              {userCommunities.map((community) => {
+                return (
+                  <>
+                    <Col key={community.id}>
+                      <Card className="text-center mt-3 shadow hover">
+                        <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
+                        <Card.Body className="d-flex">
+                          <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
+                          <Stack className="gap-2">
+                            <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">{community.title}</Card.Text>
+                          </Stack>
+                          <Button
+                            size="sm"
+                            className="float-end w-25 h-25 my-auto"
+                            onClick={() => {
+                              handleShowEditCommunity();
+                              setGetCommunityId(community.id);
+                            }}
+                          >
+                            Edit Community
+                          </Button>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </>
+                );
+              })}
             </Row>
           </Container>
         </>
@@ -255,15 +313,15 @@ function UserProfile() {
           <Form>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput1">
               <Form.Label>Title Community</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setCommunityData({ ...communityData, title: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlTextArea1">
               <Form.Label>Community Description</Form.Label>
-              <Form.Control as="textarea" rows={4} autoFocus />
+              <Form.Control as="textarea" rows={4} autoFocus onChange={(e) => setCommunityData({ ...communityData, descriptions: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Community Logo</Form.Label>
-              <Form.Control type="file" autoFocus />
+              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.value })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -271,12 +329,11 @@ function UserProfile() {
           <Button variant="secondary" onClick={handleCloseCreate}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleCloseCreate}>
+          <Button variant="primary" onClick={handleCreateCommunity}>
             Create Community
           </Button>
         </Modal.Footer>
       </Modal>
-
       {/* End Modal Create Community */}
 
       {/* Start Modal Edit Community */}
@@ -288,15 +345,15 @@ function UserProfile() {
           <Form>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput1">
               <Form.Label>Title Community</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setCommunityData({ ...communityData, title: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlTextArea1">
               <Form.Label>Community Description</Form.Label>
-              <Form.Control as="textarea" rows={4} autoFocus />
+              <Form.Control as="textarea" rows={4} autoFocus onChange={(e) => setCommunityData({ ...communityData, descriptions: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Community Logo</Form.Label>
-              <Form.Control type="file" autoFocus />
+              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.value })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -304,7 +361,7 @@ function UserProfile() {
           <Button variant="secondary" onClick={handleCloseEditCommunity}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleCloseEditCommunity}>
+          <Button variant="primary" onClick={handleEditCommunity}>
             Edit Community
           </Button>
         </Modal.Footer>

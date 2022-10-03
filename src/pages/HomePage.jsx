@@ -24,7 +24,6 @@ function HomePage() {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
         setCommunities(res.data.data);
       })
       .catch((err) => {
@@ -45,7 +44,7 @@ function HomePage() {
           {communities.map((community) => {
             return (
               <>
-                <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailCommunity()}>
+                <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailCommunity()} key={community.id}>
                   <Card.Header className="fw-bold fs-5 bg-primary text-white text-uppercase">{community.title}</Card.Header>
                   <Card.Body className="d-flex">
                     <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />

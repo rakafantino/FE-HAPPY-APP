@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Container, Form, Image, Modal, Row, Stack, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { TopNav } from "../components/TopNav";
 
 function UserProfile() {
   const [editProfile, setEditProfile] = useState(false);
@@ -67,6 +68,7 @@ function UserProfile() {
       {isLogedIn ? (
         <>
           <Card className="text-center h-75 shadow-sm">
+            <TopNav />
             <Card.Header className="fw-semibold fs-4 bg-primary text-white">User Profile</Card.Header>
             <Card.Body>
               <Row>
@@ -153,7 +155,7 @@ function UserProfile() {
           </Container>
         </>
       ) : (
-        <div onClick={() => handleRedirect()} className="btn btn-primary mx-auto">
+        <div onClick={() => handleRedirect()} className="text-center">
           login dulu bos
         </div>
       )}

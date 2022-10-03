@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const Login = () => {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   var data = JSON.stringify({
     name: name,
@@ -36,7 +39,7 @@ const Login = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error.response.data);
+        setError(error.response.data.message);
       });
   };
 
@@ -50,6 +53,12 @@ const Login = () => {
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="colreg2">
           <h1>Register to Happy App!</h1>
+          {error ?? (
+            <Alert variant={"danger"}>
+              <FontAwesomeIcon icon={faBell} size="1x" flip className="me-2" />
+              {error}
+            </Alert>
+          )}
           <Form>
             <Form.Group className="mb-2" controlId="formFullName">
               <Form.Label>Full Name</Form.Label>

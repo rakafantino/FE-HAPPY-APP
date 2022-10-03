@@ -11,6 +11,7 @@ function UserProfile() {
   const [showEditCommunity, setShowEditCommunity] = useState(false);
   const [showDeleteAccount, setShowDeleteAccount] = useState(false);
   const [userData, setUserData] = useState({});
+  // buka tutup Modal
   const handleCloseEdit = () => setEditProfile(false);
   const handleShowEdit = () => setEditProfile(true);
   const handleCloseCreate = () => setShowCreateCommunity(false);
@@ -19,6 +20,15 @@ function UserProfile() {
   const handleShowEditCommunity = () => setShowEditCommunity(true);
   const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
   const handleShowDeleteAccount = () => setShowDeleteAccount(true);
+  // Akhir Buka Tutup Modal
+
+  const [editUserInfo, setEditUserInfo] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    photo: "",
+  });
   const navigate = useNavigate();
 
   const handleRedirect = () => {
@@ -59,10 +69,46 @@ function UserProfile() {
       });
   };
 
+  const handleSubmitEdit = () => {
+    setEditUserInfo({
+      name: "",
+      username: "",
+      email: "",
+      password: "",
+      photo: "",
+    });
+    const { name, username, email, password, photo } = editUserInfo;
+    axios
+      .put(
+        "https://tugas.website/user/profile",
+        {
+          name,
+          username,
+          email,
+          password,
+          photo,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        setEditProfile(false);
+        getUserProfle();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   const handleLogout = () => {
     Cookies.remove("token");
     navigate("/");
   };
+
   return (
     <>
       {isLogedIn ? (
@@ -169,23 +215,23 @@ function UserProfile() {
           <Form>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput1">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, name: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput2">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, username: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput2">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, email: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, password: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Profile Picture</Form.Label>
-              <Form.Control type="file" autoFocus />
+              <Form.Control type="file" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, photo: e.target.value })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -193,7 +239,7 @@ function UserProfile() {
           <Button variant="secondary" onClick={handleCloseEdit}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleCloseEdit}>
+          <Button variant="primary" onClick={handleSubmitEdit}>
             Save
           </Button>
         </Modal.Footer>

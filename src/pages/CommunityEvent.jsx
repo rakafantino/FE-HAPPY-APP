@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
-import CommunityNavbar from "../components/CommunityNavbar";
-import { Footer } from "../components/Footer";
-import HeaderCommunity from "../components/HeaderCommunity";
-import { useNavigate } from "react-router-dom";
-import "../styles/HomePage.css";
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Container, Form, Modal, Stack } from 'react-bootstrap';
+import CommunityNavbar from '../components/CommunityNavbar';
+import { Footer } from '../components/Footer';
+import HeaderCommunity from '../components/HeaderCommunity';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import '../styles/HomePage.css';
 
-function CommunityEvent() {
+function CommunityEvent(props) {
   const [showMember, setShowMember] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
   const handleClose = () => setShowMember(false);
@@ -15,10 +16,43 @@ function CommunityEvent() {
   const handleCloseModalEvent = () => setShowAddEvent(false);
   const handleShowModalEvent = () => setShowAddEvent(true);
 
+  const [communityEvent, setCommunityEvent] = useState([]);
+
+  useEffect(() => {
+    getCommunityEvent();
+  }, []);
+
   const navigate = useNavigate();
+  var axios = require('axios');
+
+  const getCommunityEvent = () => {
+    axios
+      .get(`https://tugas.website/community/${Cookies.get('id')}/event`, {
+        headers: {
+          Authorization: 'Bearer ' + Cookies.get('token'),
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setCommunityEvent(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+
+  // const data = {
+  //   productID: props.id,
+  // };
+  // const config = {
+  //   headers: { Authorization: `Bearer ${props.token}` },
+  // };
+  // const url = 'http://13.57.49.65/carts';
 
   const handleDetailEvent = () => {
-    navigate("/detailevent");
+    navigate('/detailevent');
   };
   return (
     <>
@@ -30,20 +64,25 @@ function CommunityEvent() {
           Add Event
         </Button>
         {/* this can be map able */}
-        <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()}>
-          <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
-          <Card.Body className="d-flex">
-            <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
-            <Stack className="gap-2 ms-4 text-start">
-              <Card.Title className="fw-semibold fs-4 ">Event Title</Card.Title>
-              <Card.Text className="fw-semibold fs-6 ">With supporting text below as a natural lead-in to additional content.</Card.Text>
-            </Stack>
-            <Stack className="justify-content-between ms-4 text-end">
-              <Card.Text className="fw-semibold fs-6 ">Jum'at, 26 Desember 2022</Card.Text>
-              <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.150.000</Card.Text>
-            </Stack>
-          </Card.Body>
-        </Card>
+        {communityEvent.map((event) => {
+          return (
+            <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()}>
+              <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
+              <Card.Body className="d-flex">
+                <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
+                <Stack className="gap-2 ms-4 text-start">
+                  <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
+                  <Card.Text className="fw-semibold fs-6 ">With supporting text below as a natural lead-in to additional content.</Card.Text>
+                </Stack>
+                <Stack className="justify-content-between ms-4 text-end">
+                  <Card.Text className="fw-semibold fs-6 ">Jum'at, 26 Desember 2022</Card.Text>
+                  <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.150.000</Card.Text>
+                </Stack>
+              </Card.Body>
+            </Card>
+          );
+        })}
+
         <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()}>
           <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
           <Card.Body className="d-flex">

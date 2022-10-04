@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Container, Form, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const TopNav = () => {
+export const TopNav = ({ setSearch }) => {
   return (
     <>
       <Container fluid className="g-0 shadow">
@@ -18,8 +18,7 @@ export const TopNav = () => {
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Form className="ms-auto mt-lg-0 mt-2 w-75 mx-auto">
-                <Form.Control type="search" placeholder="Search" aria-label="Search" className="" />
-                <Button variant="outline-success d-none">Search</Button>
+                <Form.Control type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
               </Form>
               <Nav className="my-2 my-lg-0 ms-auto py-3" style={{ maxHeight: "100px" }} navbarScroll>
                 <Link to="/profile" className="text-white text-center">

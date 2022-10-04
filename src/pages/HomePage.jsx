@@ -32,8 +32,8 @@ function HomePage() {
     getCommunities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
-
-  const handleDetailCommunity = () => {
+  const handleDetailCommunity = (id) => {
+    Cookies.set("id", id);
     navigate("/community/feed");
   };
   return (
@@ -45,7 +45,7 @@ function HomePage() {
           <h3 className="text-center mt-3">Community List</h3>
           {communities.map((community) => {
             return (
-              <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailCommunity()} key={community.id}>
+              <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailCommunity(community.id)} key={community.id}>
                 <Card.Header className="fw-bold fs-5 bg-primary text-white text-uppercase">{community.title}</Card.Header>
                 <Card.Body className="d-flex">
                   <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />

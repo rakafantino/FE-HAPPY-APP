@@ -10,14 +10,15 @@ import axios from "axios";
 function EventList() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [search]);
 
   const getEvents = () => {
     axios
-      .get("https://tugas.website/event")
+      .get(`https://tugas.website/event?title=`)
       .then((response) => {
         setEvents(response.data.event);
       })
@@ -31,7 +32,7 @@ function EventList() {
 
   return (
     <>
-      <TopNav />
+      <TopNav setSearch={setSearch} />
       <NavBar />
       <Container className="min-vh-100">
         <main>
@@ -41,7 +42,7 @@ function EventList() {
               <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()} key={event.id}>
                 <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
                 <Card.Body className="d-flex">
-                  <Card.Img variant="left" src="https://picsum.photos/100/100" className="img-fluid rounded ms-3" />
+                  <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
                   <Stack className="gap-2 ms-4 text-start">
                     <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
                     <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>

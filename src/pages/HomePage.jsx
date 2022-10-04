@@ -11,14 +11,11 @@ import "../styles/HomePage.css";
 function HomePage() {
   const navigate = useNavigate();
   const [communities, setCommunities] = useState([]);
-
-  useEffect(() => {
-    getCommunities();
-  }, []);
+  const [search, setSearch] = useState("");
 
   const getCommunities = () => {
     axios
-      .get("https://tugas.website/community", {
+      .get(`https://tugas.website/community?title=${search}`, {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
@@ -31,12 +28,15 @@ function HomePage() {
       });
   };
 
+  useEffect(() => {
+    getCommunities();
+  }, [search]);
   const handleDetailCommunity = () => {
     navigate("/community/feed");
   };
   return (
     <>
-      <TopNav />
+      <TopNav setSearch={setSearch} />
       <NavBar />
       <Container className="min-vh-100">
         <main>

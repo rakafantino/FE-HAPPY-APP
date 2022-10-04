@@ -32,6 +32,7 @@ function HomePage() {
     getCommunities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
+
   const handleDetailCommunity = (id) => {
     Cookies.set("id", id);
     navigate("/community/feed");

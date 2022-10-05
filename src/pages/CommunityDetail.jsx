@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Modal } from "react-bootstrap";
+import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
@@ -10,15 +13,55 @@ function CommunityDetail() {
   const [showMember, setShowMember] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
+  const [communityDetails, setCommunityDetails] = useState({});
+  const [communityMembers, setCommunityMembers] = useState([]);
 
   const navigate = useNavigate();
+
+  const getCommunityFeed = () => {
+    axios
+      .get(`https://tugas.website/community/${Cookies.get("id")}`, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then((res) => {
+        setCommunityDetails(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getCommunityMembers = () => {
+    axios
+      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then((res) => {
+        setCommunityMembers(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    getCommunityFeed();
+    getCommunityMembers();
+  }, []);
 
   const handleDetailPost = () => {
     navigate("/community/postdetail");
   };
+
+  console.log(communityDetails.Feeds);
+
   return (
     <>
-      <HeaderCommunity handleShow={handleShow} />
+      <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">
         {/* this can be map able */}
@@ -33,30 +76,29 @@ function CommunityDetail() {
             </Button>
           </Card.Body>
         </Card>
-        <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
-          <Card.Header as="h5">
-            Raka <span className="float-end fw-regular fs-5">Jum'at, 99 Desember 2022</span>
-          </Card.Header>
-          <Card.Body>
-            <Card.Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique repudiandae nemo omnis rerum dolores maiores voluptas accusamus pariatur! Harum vero, fuga a enim numquam quam exercitationem rem id! In cupiditate tempora
-              autem molestias omnis nesciunt qui quis excepturi, repellendus, culpa iusto minima est quaerat repellat modi itaque sequi perspiciatis laborum consectetur tenetur quasi! Eveniet ratione molestiae cum vero explicabo facere qui
-              ipsa minima. Eveniet voluptatem officia perspiciatis ratione eius aliquid repudiandae nam reiciendis. Quae nobis, commodi optio corporis neque numquam?
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
-          <Card.Header as="h5">
-            Doffa <span className="float-end fw-regular fs-5">Sabtu, 30 Februari 2023</span>
-          </Card.Header>
-          <Card.Body>
-            <Card.Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique repudiandae nemo omnis rerum dolores maiores voluptas accusamus pariatur! Harum vero, fuga a enim numquam quam exercitationem rem id! In cupiditate tempora
-              autem molestias omnis nesciunt qui quis excepturi, repellendus, culpa iusto minima est quaerat repellat modi itaque sequi perspiciatis laborum consectetur tenetur quasi! Eveniet ratione molestiae cum vero explicabo facere qui
-              ipsa minima. Eveniet voluptatem officia perspiciatis ratione eius aliquid repudiandae nam reiciendis. Quae nobis, commodi optio corporis neque numquam?
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        {communityDetails.Feeds === null || undefined ? (
+          <>
+            <div>No Post</div>
+          </>
+        ) : (
+          <>
+            {/* {communityDetails.Feeds.map((feed) => {
+              return (
+                <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
+                  <Card.Header as="h5">
+                    {feed.name}{" "}
+                    <span className="float-end fw-regular fs-5">
+                      <Moment format="DD-MM-YYYY">{feed.date}</Moment>
+                    </span>
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>{feed.text}</Card.Text>
+                  </Card.Body>
+                </Card>
+              );
+            })} */}
+          </>
+        )}
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>
@@ -64,10 +106,9 @@ function CommunityDetail() {
           <Modal.Title>List Member</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Raka</h5>
-          <h5>Doffa</h5>
-          <h5>Amin</h5>
-          <h5>Nawi</h5>
+          {communityMembers.map((member) => {
+            return <h5 className="text-capitalize">{member}</h5>;
+          })}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

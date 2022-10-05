@@ -3,6 +3,8 @@ import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function CommunityNavbar() {
+
+  
   return (
     <Nav className="justify-content-evenly mt-4 border container py-2" activeKey="/">
       <Nav.Item>

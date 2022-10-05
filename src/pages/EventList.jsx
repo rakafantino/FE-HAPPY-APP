@@ -6,6 +6,7 @@ import { TopNav } from "../components/TopNav";
 import { useNavigate } from "react-router-dom";
 import "../styles/HomePage.css";
 import axios from "axios";
+import Moment from "react-moment";
 
 function EventList() {
   const navigate = useNavigate();
@@ -48,7 +49,9 @@ function EventList() {
                     <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
                   </Stack>
                   <Stack className="justify-content-between ms-4 text-end">
-                    <Card.Text className="fw-semibold fs-6 ">{event.date}</Card.Text>
+                    <Card.Text className="fw-semibold fs-6 ">
+                      <Moment format="DD-MM-YYYY">{event.date}</Moment>
+                    </Card.Text>
                     <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.{event.price}</Card.Text>
                   </Stack>
                 </Card.Body>

@@ -107,6 +107,7 @@ function UserProfile() {
       .then((res) => {
         setEditProfile(false);
         getUserProfle();
+        console.log(photo);
       })
       .catch((err) => {
         console.error(err);
@@ -170,6 +171,7 @@ function UserProfile() {
         console.error(error);
       });
   };
+
   return (
     <>
       {isLogedIn ? (
@@ -287,7 +289,7 @@ function UserProfile() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Profile Picture</Form.Label>
-              <Form.Control type="file" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, photo: e.target.value })} />
+              <Form.Control type="file" autoFocus onChange={(e) => setEditUserInfo({ ...editUserInfo, photo: e.target.files[0] })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -319,7 +321,7 @@ function UserProfile() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Community Logo</Form.Label>
-              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.value })} />
+              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.files[0] })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -351,7 +353,7 @@ function UserProfile() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="editProfileForm.ControlInput4">
               <Form.Label>Upload Community Logo</Form.Label>
-              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.value })} />
+              <Form.Control type="file" autoFocus onChange={(e) => setCommunityData({ ...communityData, logo: e.target.files[0] })} />
             </Form.Group>
           </Form>
         </Modal.Body>

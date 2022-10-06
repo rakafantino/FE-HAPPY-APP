@@ -58,23 +58,25 @@ const CommunityStore = () => {
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
-      {CommunityStore ? (
-        <Container className="contcs min-vh-100">
-          {communityStore.map((item) => {
-            return (
-              <div>
-                <ProductCard item={item} />;
-              </div>
-            );
-          })}
-        </Container>
-      ) : (
-        <>
-          <div className="d-flex justify-content-center align-items-center">
-            <h5>There's No Item</h5>
-          </div>
-        </>
-      )}
+      <Container className="contcs min-vh-100">
+        {communityStore ? (
+          <>
+            {communityStore.map((item) => {
+              return (
+                <div>
+                  <ProductCard item={item} />;
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <div className="d-flex justify-content-center align-items-center">
+              <h5>There's No Item</h5>
+            </div>
+          </>
+        )}
+      </Container>
 
       <Footer />
       <Modal show={showMember} onHide={handleClose}>

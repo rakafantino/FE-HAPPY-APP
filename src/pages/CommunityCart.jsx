@@ -1,24 +1,70 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Cart.css';
 import { Button, Card, Container, Modal, Stack } from 'react-bootstrap';
 import CommunityNavbar from '../components/CommunityNavbar';
 import { Footer } from '../components/Footer';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import HeaderCommunity from '../components/HeaderCommunity';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const CommunityCart = () => {
   const [showMember, setShowMember] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
+
+  const [communityCart, setCommunityCart] = useState([]);
+  const [communityMembers, setCommunityMembers] = useState([]);
+  const [communityDetails, setCommunityDetails] = useState({});
+
+
+
   const navigate = useNavigate();
 
+  const getCommunityCart = () => {
+    axios
+      .get('https://tugas.website/cart?communityid=1', {
+        headers: {
+          Authorization: 'Bearer ' + Cookies.get('token'),
+        },
+      })
+      .then((res) => {
+        setCommunityCart(res.data.cart);
+        setCommunityDetails(res.data);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const getCommunityMembers = () => {
+    axios
+      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
+        headers: {
+          Authorization: 'Bearer ' + Cookies.get('token'),
+        },
+      })
+      .then((res) => {
+        setCommunityMembers(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    getCommunityMembers();
+    getCommunityCart()
+  }, []);
+
   const handleCheckout = () => {
-    navigate("/community/payment");
+    navigate('/community/payment');
   };
 
   return (
     <>
-      <HeaderCommunity handleShow={handleShow} />
+      <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">
         <h3 className="text-center mt-3">Cart</h3>
@@ -43,7 +89,9 @@ const CommunityCart = () => {
           </Card.Body>
         </Card>
         <p className="pcart">Total Price : Rp 123</p>
-        <Button className="float-end mt-1" onClick={handleCheckout}>Checkout</Button>
+        <Button className="float-end mt-1" onClick={handleCheckout}>
+          Checkout
+        </Button>
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>
@@ -51,10 +99,9 @@ const CommunityCart = () => {
           <Modal.Title>List Member</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Raka</h5>
-          <h5>Doffa</h5>
-          <h5>Amin</h5>
-          <h5>Nawi</h5>
+          {communityMembers.map((member) => {
+            return <h5 className="text-capitalize">{member}</h5>;
+          })}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

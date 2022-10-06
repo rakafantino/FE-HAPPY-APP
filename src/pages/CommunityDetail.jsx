@@ -81,7 +81,6 @@ function CommunityDetail() {
       },
     });
   };
-  console.log(communityFeeds);
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />

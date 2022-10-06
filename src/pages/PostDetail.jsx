@@ -46,6 +46,7 @@ function PostDetail() {
 
   useEffect(() => {
     getPostDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -54,9 +55,9 @@ function PostDetail() {
       <Container className="min-vh-100">
         {/* this can be map able */}
         {postDetail ? (
-          <Card className="px-3 my-3 h-100 d-flex">
+          <Card className="px-3 my-3 h-100 d-flex" key={postDetail.id}>
             <Card.Header as="h5">
-              {postDetail.name}{" "}
+              {postDetail.name}
               <span className="float-end fw-regular fs-5">
                 <Moment format="DD-MM-YYYY">{postDetail.date}</Moment>
               </span>

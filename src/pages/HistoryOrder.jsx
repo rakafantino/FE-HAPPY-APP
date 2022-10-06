@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
+import React from "react";
+import { Card, Container, Stack } from "react-bootstrap";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
-import HeaderCommunity from "../components/HeaderCommunity";
 
 function HistoryOrder() {
-  const [showMember, setShowMember] = useState(false);
-  const handleClose = () => setShowMember(false);
-  const handleShow = () => setShowMember(true);
-
   return (
     <>
-      <HeaderCommunity handleShow={handleShow} />
       <CommunityNavbar />
       <Container className="min-vh-100">
         <h3 className="text-center mt-3">History Order</h3>
@@ -57,22 +51,6 @@ function HistoryOrder() {
         </Card>
       </Container>
       <Footer />
-      <Modal show={showMember} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>List Member</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Raka</h5>
-          <h5>Doffa</h5>
-          <h5>Amin</h5>
-          <h5>Nawi</h5>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

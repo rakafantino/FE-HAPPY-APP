@@ -53,11 +53,13 @@ const Login = () => {
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="colreg2">
           <h1>Register to Happy App!</h1>
-          {error ?? (
+          {error ? (
             <Alert variant={"danger"}>
               <FontAwesomeIcon icon={faBell} size="1x" flip className="me-2" />
               {error}
             </Alert>
+          ) : (
+            <></>
           )}
           <Form>
             <Form.Group className="mb-2" controlId="formFullName">

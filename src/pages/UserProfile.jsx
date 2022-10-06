@@ -23,6 +23,7 @@ function UserProfile() {
   const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
   const handleShowDeleteAccount = () => setShowDeleteAccount(true);
   // Akhir Buka Tutup Modal
+  const navigate = useNavigate();
 
   const [editUserInfo, setEditUserInfo] = useState({
     name: "",
@@ -31,7 +32,6 @@ function UserProfile() {
     password: "",
     photo: "",
   });
-  const navigate = useNavigate();
 
   const [communityData, setCommunityData] = useState({
     title: "",
@@ -260,8 +260,10 @@ function UserProfile() {
           </Container>
         </>
       ) : (
-        <div onClick={() => handleRedirect()} className="text-center">
-          login dulu bos
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <Button onClick={() => handleRedirect()} className="text-center">
+            login dulu bos
+          </Button>
         </div>
       )}
 

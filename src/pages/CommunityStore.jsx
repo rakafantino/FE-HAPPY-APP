@@ -1,12 +1,11 @@
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import '../styles/CommunityStore.css';
-import ProductCard from '../components/ProductCard';
-import { Footer } from '../components/Footer';
-import CommunityNavbar from '../components/CommunityNavbar';
-import HeaderCommunity from '../components/HeaderCommunity';
-import { Button, Container, Modal } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Modal } from "react-bootstrap";
+import CommunityNavbar from "../components/CommunityNavbar";
+import { Footer } from "../components/Footer";
+import HeaderCommunity from "../components/HeaderCommunity";
+import ProductCard from "../components/ProductCard";
+import "../styles/CommunityStore.css";
 
 const CommunityStore = () => {
   const [showMember, setShowMember] = useState(false);
@@ -22,14 +21,13 @@ const CommunityStore = () => {
     getCommunityMembers();
   }, []);
 
-  const navigate = useNavigate();
-  var axios = require('axios');
+  var axios = require("axios");
 
   const getCommunityStore = () => {
     axios
-      .get(`https://tugas.website/community/${Cookies.get('id')}/store`, {
+      .get(`https://tugas.website/community/${Cookies.get("id")}/store`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -43,9 +41,9 @@ const CommunityStore = () => {
 
   const getCommunityMembers = () => {
     axios
-      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
+      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -61,13 +59,21 @@ const CommunityStore = () => {
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="contcs min-vh-100">
-        {communityStore.map((item) => {
-          return (
-            <div>
-              <ProductCard item={item} />;
-            </div>
-          );
-        })}
+        {communityStore ? (
+          <>
+            {communityStore.map((item) => {
+              return (
+                <div>
+                  <ProductCard item={item} />;
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <div>
+            <h5>no Items</h5>
+          </div>
+        )}
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>

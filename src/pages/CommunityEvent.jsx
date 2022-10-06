@@ -21,6 +21,14 @@ function CommunityEvent() {
   const [communityEvent, setCommunityEvent] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
 
+  const [eventData, setEventData] = useState({
+    title: "",
+    descriptions: "",
+    date_event: "",
+    price: "",
+    location: "",
+  });
+
   const navigate = useNavigate();
   var axios = require("axios");
 
@@ -53,19 +61,52 @@ function CommunityEvent() {
     navigate("/detailevent");
   };
 
+  const addEvent = () => {
+    const { title, descriptions, date_event, price, location } = eventData;
+    axios
+      .post(
+        `https://tugas.website/community/${Cookies.get("id")}/event`,
+        {
+          title,
+          descriptions,
+          date_event,
+          price: parseInt(price),
+          location,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        getCommunityEvent();
+        setShowAddEvent(false);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getCommunityEvent();
     getCommunityMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">
         {/* This Button Below will Be Shown When The User Role Is The Admin Of The Community */}
-        <Button className="mt-3" onClick={handleShowModalEvent}>
-          Add Event
-        </Button>
+        {communityDetails.role === "admin" ? (
+          <div className="d-flex justify-content-center my-3">
+            <Button onClick={handleShowModalEvent}>Add Event</Button>
+          </div>
+        ) : (
+          <></>
+        )}
+
         {/* this can be map able */}
         {communityEvent ? (
           <>
@@ -74,7 +115,7 @@ function CommunityEvent() {
                 <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()} key={event.id}>
                   <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
                   <Card.Body className="d-flex">
-                    <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" />
+                    <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
                     <Stack className="gap-2 ms-4 text-start">
                       <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
                       <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
@@ -99,6 +140,7 @@ function CommunityEvent() {
         )}
       </Container>
       <Footer />
+      {/* modal Show member List */}
       <Modal show={showMember} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>List Member</Modal.Title>
@@ -114,6 +156,8 @@ function CommunityEvent() {
           </Button>
         </Modal.Footer>
       </Modal>
+      {/* Akhit Modal Show Member List */}
+      {/* Modal Create Event */}
       <Modal show={showAddEvent} onHide={handleCloseModalEvent}>
         <Modal.Header closeButton>
           <Modal.Title>Create Event</Modal.Title>
@@ -122,23 +166,23 @@ function CommunityEvent() {
           <Form>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput1">
               <Form.Label>Event Name</Form.Label>
-              <Form.Control type="text" placeholder="Event Name" autoFocus />
+              <Form.Control type="text" placeholder="Event Name" autoFocus onChange={(e) => setEventData({ ...eventData, title: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlTextarea1">
               <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="addEventForm.ControlInput2">
-              <Form.Label>Event Date</Form.Label>
-              <Form.Control type="date" autoFocus />
+              <Form.Control as="textarea" rows={3} onChange={(e) => setEventData({ ...eventData, descriptions: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">
-              <Form.Label>Event Time</Form.Label>
-              <Form.Control type="time" autoFocus />
+              <Form.Label>Event Date</Form.Label>
+              <Form.Control type="datetime-local" autoFocus onChange={(e) => setEventData({ ...eventData, date_event: e.target.value })} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">
+              <Form.Label>Event Location</Form.Label>
+              <Form.Control type="text" autoFocus onChange={(e) => setEventData({ ...eventData, location: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Event HTM Price</Form.Label>
-              <Form.Control type="text" placeholder="Input Price" autoFocus />
+              <Form.Control type="text" placeholder="Input Price" autoFocus onChange={(e) => setEventData({ ...eventData, price: e.target.value })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -146,11 +190,12 @@ function CommunityEvent() {
           <Button variant="secondary" onClick={handleCloseModalEvent}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleCloseModalEvent}>
+          <Button variant="primary" onClick={addEvent}>
             Create Event
           </Button>
         </Modal.Footer>
       </Modal>
+      {/* Akhir Modal Create Event */}
     </>
   );
 }

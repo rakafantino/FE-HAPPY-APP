@@ -1,3 +1,5 @@
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import cookie from "js-cookie";
 import React, { useState } from "react";
@@ -35,7 +37,14 @@ const Login = () => {
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="collog2">
           <h1>Welcome to Happy App!</h1>
-          {error ?? <Alert variant={"danger"}>{error}</Alert>}
+          {error ? (
+            <Alert variant={"danger"}>
+              <FontAwesomeIcon icon={faBell} size="1x" flip className="me-2" />
+              {error}
+            </Alert>
+          ) : (
+            <></>
+          )}
           <Form>
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Label>Email address</Form.Label>

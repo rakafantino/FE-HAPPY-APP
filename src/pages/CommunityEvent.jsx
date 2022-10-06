@@ -27,20 +27,15 @@ function CommunityEvent() {
   const navigate = useNavigate();
   var axios = require("axios");
 
-  const getCommunityEvent = () => {
-    axios
-      .get(`https://tugas.website/community/${Cookies.get("id")}/event`, {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      })
-      .then((res) => {
-        setCommunityEvent(res.data.event);
-        setCommunityDetails(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getCommunityEvent = async () => {
+    const res = await axios.get(`https://tugas.website/community/${Cookies.get("id")}/event`, {
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    });
+
+    setCommunityEvent(res.data.event);
+    setCommunityDetails(res.data);
   };
 
   const handleDetailEvent = () => {
@@ -59,26 +54,36 @@ function CommunityEvent() {
           Add Event
         </Button>
         {/* this can be map able */}
-        {communityEvent.map((event) => {
-          return (
-            <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()} key={event.id}>
-              <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
-              <Card.Body className="d-flex">
-                <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" />
-                <Stack className="gap-2 ms-4 text-start">
-                  <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
-                  <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
-                </Stack>
-                <Stack className="justify-content-between ms-4 text-end">
-                  <Card.Text className="fw-semibold fs-6 ">
-                    <Moment format="DD-MM-YYYY">{event.date}</Moment>
-                  </Card.Text>
-                  <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.{event.price}</Card.Text>
-                </Stack>
-              </Card.Body>
-            </Card>
-          );
-        })}
+        {communityEvent ? (
+          <>
+            {communityEvent.map((event) => {
+              return (
+                <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()} key={event.id}>
+                  <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
+                  <Card.Body className="d-flex">
+                    <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" />
+                    <Stack className="gap-2 ms-4 text-start">
+                      <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
+                      <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
+                    </Stack>
+                    <Stack className="justify-content-between ms-4 text-end">
+                      <Card.Text className="fw-semibold fs-6 ">
+                        <Moment format="DD-MM-YYYY">{event.date}</Moment>
+                      </Card.Text>
+                      <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.{event.price}</Card.Text>
+                    </Stack>
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <div className="d-flex justify-content-center align-items-center">
+              <h5>There's No Event In Here</h5>
+            </div>
+          </>
+        )}
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>

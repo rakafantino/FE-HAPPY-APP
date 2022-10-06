@@ -15,28 +15,23 @@ function CommunityDetail() {
   const handleShow = () => setShowMember(true);
   const [communityDetails, setCommunityDetails] = useState({});
   const [communityMembers, setCommunityMembers] = useState([]);
-  const [communityFeeds, setCommunityFeeds] = useState({});
+  const [communityFeeds, setCommunityFeeds] = useState([]);
 
   const navigate = useNavigate();
 
-  const getCommunityFeed = () => {
-    axios
-      .get(`https://tugas.website/community/${Cookies.get("id")}`, {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      })
-      .then((res) => {
-        setCommunityDetails(res.data.data);
-        setCommunityFeeds(res.data.data.Feeds);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getCommunityFeed = async () => {
+    const res = await axios.get(`https://tugas.website/community/${Cookies.get("id")}`, {
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    });
+    setCommunityDetails(res.data.data);
+    setCommunityFeeds(res.data.data.Feeds);
+    console.log(res.data.data.Feeds);
   };
 
-  const getCommunityMembers = () => {
-    axios
+  const getCommunityMembers = async () => {
+    await axios
       .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -58,7 +53,7 @@ function CommunityDetail() {
   const handleDetailPost = () => {
     navigate("/community/postdetail");
   };
-  console.log(communityFeeds);
+
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
@@ -76,17 +71,11 @@ function CommunityDetail() {
             </Button>
           </Card.Body>
         </Card>
-        {communityFeeds === {} ? (
+        {communityFeeds ? (
           <>
-            <div className="d-flex justify-content-center">
-              <h5>No Post</h5>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* {communityFeeds.map((feed) => {
+            {communityFeeds.map((feed) => {
               return (
-                <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
+                <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()} key={feed.id}>
                   <Card.Header as="h5">
                     {feed.name}{" "}
                     <span className="float-end fw-regular fs-5">
@@ -98,7 +87,13 @@ function CommunityDetail() {
                   </Card.Body>
                 </Card>
               );
-            })} */}
+            })}
+          </>
+        ) : (
+          <>
+            <div className="d-flex justify-content-center">
+              <h5>No Post Yet Be The Frist To Post</h5>
+            </div>
           </>
         )}
       </Container>

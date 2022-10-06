@@ -47,9 +47,7 @@ function PostDetail() {
   useEffect(() => {
     getPostDetail();
   }, []);
-  console.log(postDetail);
 
-  console.log(postDetail.comments.text);
   return (
     <>
       <CommunityNavbar />

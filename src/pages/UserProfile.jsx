@@ -242,16 +242,30 @@ function UserProfile() {
                         <Stack className="gap-2">
                           <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">{community.title}</Card.Text>
                         </Stack>
-                        <Button
-                          size="sm"
-                          className="float-end w-25 h-25 my-auto"
-                          onClick={() => {
-                            handleShowEditCommunity();
-                            setGetCommunityId(community.id);
-                          }}
-                        >
-                          Edit Community
-                        </Button>
+                        {community.role === "admin" ? (
+                          <Button
+                            size="sm"
+                            className="float-end w-25 h-25 my-auto"
+                            onClick={() => {
+                              handleShowEditCommunity();
+                              setGetCommunityId(community.id);
+                            }}
+                          >
+                            Edit Community
+                          </Button>
+                        ) : (
+                          <Button
+                            size="sm"
+                            className="float-end w-25 h-25 my-auto"
+                            onClick={() => {
+                              handleShowEditCommunity();
+                              setGetCommunityId(community.id);
+                            }}
+                            disabled
+                          >
+                            Edit Community
+                          </Button>
+                        )}
                       </Card.Body>
                     </Card>
                   </Col>

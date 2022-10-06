@@ -1,6 +1,8 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Button, Container, Modal } from "react-bootstrap";
+import { Button, Container, Form, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
@@ -9,19 +11,23 @@ import "../styles/CommunityStore.css";
 
 const CommunityStore = () => {
   const [showMember, setShowMember] = useState(false);
+  const [showAddProduct, setShowAddProduct] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
-
   const [communityStore, setCommunityStore] = useState([]);
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCommunityStore();
     getCommunityMembers();
   }, []);
 
-  var axios = require("axios");
+  const handlehHistoryPage = () => {
+    navigate(`/community/historyorder`);
+  };
 
   const getCommunityStore = () => {
     axios
@@ -58,6 +64,18 @@ const CommunityStore = () => {
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
+      {communityDetails.role === "admin" ? (
+        <div className="d-flex flex-column justify-content-center align-items-center my-3">
+          <Button className="w-25 mb-2" onClick={() => setShowAddProduct(true)}>
+            Add Product
+          </Button>
+          <Button className="w-25" onClick={handlehHistoryPage}>
+            Transaction History
+          </Button>
+        </div>
+      ) : (
+        <></>
+      )}
       <Container className="contcs min-vh-100">
         {communityStore ? (
           <>
@@ -79,6 +97,7 @@ const CommunityStore = () => {
       </Container>
 
       <Footer />
+      {/* Modal Show Member Start */}
       <Modal show={showMember} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>List Member</Modal.Title>
@@ -94,6 +113,44 @@ const CommunityStore = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      {/* Modal Show Member End */}
+
+      {/* Modal Add Product Start */}
+      <Modal show={showAddProduct} onHide={() => setShowAddProduct(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlInput1">
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control type="text" autoFocus />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlTextarea1">
+              <Form.Label>Product Description</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control type="number" autoFocus />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
+              <Form.Label>Price</Form.Label>
+              <Form.Control type="text" placeholder="Input Price" autoFocus />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddProduct(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={() => setShowAddProduct(false)}>
+            Create Product
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Add Product End */}
     </>
   );
 };

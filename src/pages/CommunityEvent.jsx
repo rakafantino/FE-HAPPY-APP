@@ -169,7 +169,7 @@ function CommunityEvent() {
               <Form.Control type="text" placeholder="Event Name" autoFocus onChange={(e) => setEventData({ ...eventData, title: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlTextarea1">
-              <Form.Label>Example textarea</Form.Label>
+              <Form.Label>Event Description</Form.Label>
               <Form.Control as="textarea" rows={3} onChange={(e) => setEventData({ ...eventData, descriptions: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">

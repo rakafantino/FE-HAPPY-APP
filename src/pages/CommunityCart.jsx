@@ -30,7 +30,7 @@ const CommunityCart = () => {
       })
       .then((res) => {
         setCommunityCart(res.data.cart);
-        setCommunityDetails(res.data);
+        setCommunityDetails(res.data.community);
         console.log(res);
       })
       .catch((err) => {

@@ -16,6 +16,7 @@ function CommunityDetail() {
   const [communityDetails, setCommunityDetails] = useState({});
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityFeeds, setCommunityFeeds] = useState([]);
+  const [feedContent, setFeedContent] = useState("");
 
   const navigate = useNavigate();
 
@@ -27,7 +28,6 @@ function CommunityDetail() {
     });
     setCommunityDetails(res.data.data);
     setCommunityFeeds(res.data.data.Feeds);
-    console.log(res.data.data.Feeds);
   };
 
   const getCommunityMembers = async () => {
@@ -45,6 +45,27 @@ function CommunityDetail() {
       });
   };
 
+  const postFeed = () => {
+    axios
+      .post(
+        `https://tugas.website/community/${Cookies.get("id")}/feed`,
+        {
+          text: feedContent,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        getCommunityFeed();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   useEffect(() => {
     getCommunityFeed();
     getCommunityMembers();
@@ -53,7 +74,7 @@ function CommunityDetail() {
   const handleDetailPost = () => {
     navigate("/community/postdetail");
   };
-
+  console.log(feedContent);
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
@@ -64,9 +85,9 @@ function CommunityDetail() {
           <Card.Header as="h5">Post Something</Card.Header>
           <Card.Body>
             <div className="mb-3">
-              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Tulis Sesuatu"></textarea>
+              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write Something..." onChange={(e) => setFeedContent(e.target.value)}></textarea>
             </div>
-            <Button variant="primary" className="float-end">
+            <Button variant="primary" className="float-end" onClick={postFeed}>
               Post
             </Button>
           </Card.Body>

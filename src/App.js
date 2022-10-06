@@ -32,7 +32,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/event" element={<EventList />} />
         <Route path="/detailevent" element={<DetailEvent />} />
-        <Route path="/detailproduct" element={<DetailProduct />} />
+        <Route path="/detailproduct/:id" element={<DetailProduct />} />
       </Routes>
     </Router>
   );

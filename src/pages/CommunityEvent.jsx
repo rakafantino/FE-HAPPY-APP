@@ -11,18 +11,15 @@ import "../styles/HomePage.css";
 function CommunityEvent() {
   const [showMember, setShowMember] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
+
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
 
   const handleCloseModalEvent = () => setShowAddEvent(false);
   const handleShowModalEvent = () => setShowAddEvent(true);
-
+  const [communityMembers, setCommunityMembers] = useState([]);
   const [communityEvent, setCommunityEvent] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
-
-  useEffect(() => {
-    getCommunityEvent();
-  }, []);
 
   const navigate = useNavigate();
   var axios = require("axios");
@@ -38,12 +35,28 @@ function CommunityEvent() {
     setCommunityDetails(res.data);
   };
 
+  const getCommunityMembers = async () => {
+    await axios
+      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then((res) => {
+        setCommunityMembers(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const handleDetailEvent = () => {
     navigate("/detailevent");
   };
 
-  console.log(communityEvent);
-
+  useEffect(() => {
+    getCommunityEvent();
+    getCommunityMembers();
+  }, []);
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
@@ -91,10 +104,9 @@ function CommunityEvent() {
           <Modal.Title>List Member</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Raka</h5>
-          <h5>Doffa</h5>
-          <h5>Amin</h5>
-          <h5>Nawi</h5>
+          {communityMembers.map((member) => {
+            return <h5 className="text-capitalize">{member}</h5>;
+          })}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

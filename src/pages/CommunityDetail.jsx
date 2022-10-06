@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Modal } from "react-bootstrap";
+import { Alert, Button, Card, Container, Modal } from "react-bootstrap";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
@@ -17,6 +17,7 @@ function CommunityDetail() {
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityFeeds, setCommunityFeeds] = useState([]);
   const [feedContent, setFeedContent] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -60,9 +61,11 @@ function CommunityDetail() {
       )
       .then((res) => {
         getCommunityFeed();
+        setFeedContent("");
       })
       .catch((err) => {
-        console.error(err);
+        setError(err.response.data.message);
+        setFeedContent("");
       });
   };
 
@@ -71,16 +74,27 @@ function CommunityDetail() {
     getCommunityMembers();
   }, []);
 
-  const handleDetailPost = () => {
-    navigate("/community/postdetail");
+  const handleDetailPost = (id) => {
+    navigate(`/community/postdetail/${id}`, {
+      state: {
+        id: id,
+      },
+    });
   };
-  console.log(feedContent);
+  console.log(communityFeeds);
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">
         {/* this can be map able */}
+        {error ? (
+          <div className="d-flex justify-content-center mt-2">
+            <Alert variant="danger">{error}</Alert>
+          </div>
+        ) : (
+          <></>
+        )}
         <Card className="w-75 mx-auto my-3">
           <Card.Header as="h5">Post Something</Card.Header>
           <Card.Body>
@@ -92,11 +106,12 @@ function CommunityDetail() {
             </Button>
           </Card.Body>
         </Card>
+
         {communityFeeds ? (
           <>
             {communityFeeds.map((feed) => {
               return (
-                <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()} key={feed.id}>
+                <Card className="px-3 my-3 hover" onClick={() => handleDetailPost(feed.id)} key={feed.id}>
                   <Card.Header as="h5">
                     {feed.name}{" "}
                     <span className="float-end fw-regular fs-5">

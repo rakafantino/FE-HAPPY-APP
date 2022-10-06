@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +21,7 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         console.log(err);
       });
   };
+
   return (
     <>
       <Card className="text-center h-75 shadow-sm">

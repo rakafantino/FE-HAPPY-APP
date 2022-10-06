@@ -116,6 +116,7 @@ function UserProfile() {
 
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("id");
     navigate("/");
   };
 

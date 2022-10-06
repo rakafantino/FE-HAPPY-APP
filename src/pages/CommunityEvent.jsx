@@ -47,6 +47,8 @@ function CommunityEvent() {
     navigate("/detailevent");
   };
 
+  console.log(communityEvent);
+
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />

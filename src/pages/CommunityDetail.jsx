@@ -15,6 +15,7 @@ function CommunityDetail() {
   const handleShow = () => setShowMember(true);
   const [communityDetails, setCommunityDetails] = useState({});
   const [communityMembers, setCommunityMembers] = useState([]);
+  const [communityFeeds, setCommunityFeeds] = useState({});
 
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ function CommunityDetail() {
       })
       .then((res) => {
         setCommunityDetails(res.data.data);
+        setCommunityFeeds(res.data.data.Feeds);
       })
       .catch((err) => {
         console.log(err);
@@ -56,9 +58,7 @@ function CommunityDetail() {
   const handleDetailPost = () => {
     navigate("/community/postdetail");
   };
-
-  console.log(communityDetails.Feeds);
-
+  console.log(communityFeeds);
   return (
     <>
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
@@ -76,13 +76,15 @@ function CommunityDetail() {
             </Button>
           </Card.Body>
         </Card>
-        {communityDetails.Feeds === null || undefined ? (
+        {communityFeeds === {} ? (
           <>
-            <div>No Post</div>
+            <div className="d-flex justify-content-center">
+              <h5>No Post</h5>
+            </div>
           </>
         ) : (
           <>
-            {/* {communityDetails.Feeds.map((feed) => {
+            {/* {communityFeeds.map((feed) => {
               return (
                 <Card className="px-3 my-3 hover" onClick={() => handleDetailPost()}>
                   <Card.Header as="h5">

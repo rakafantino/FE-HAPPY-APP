@@ -57,8 +57,12 @@ function CommunityEvent() {
         console.error(err);
       });
   };
-  const handleDetailEvent = () => {
-    navigate("/detailevent");
+  const handleDetailEvent = (id) => {
+    navigate(`/detailevent/${id}`, {
+      state: {
+        id: id,
+      },
+    });
   };
 
   const addEvent = () => {
@@ -112,7 +116,7 @@ function CommunityEvent() {
           <>
             {communityEvent.map((event) => {
               return (
-                <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent()} key={event.id}>
+                <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent(event.id)} key={event.id}>
                   <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
                   <Card.Body className="d-flex">
                     <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />

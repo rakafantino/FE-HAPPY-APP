@@ -42,6 +42,7 @@ function UserProfile() {
   const handleRedirect = () => {
     navigate("/");
   };
+
   const isLogedIn = Cookies.get("token");
 
   useEffect(() => {

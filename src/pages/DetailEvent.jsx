@@ -14,8 +14,8 @@ import "../styles/DetailEvent.css";
 const DetailEvent = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [detailEvent, setDetailEvent] = useState({});
-  const location = useLocation();
   const [payments, setPayments] = useState("");
+  const location = useLocation();
 
   const getDetailEvent = () => {
     axios
@@ -37,7 +37,7 @@ const DetailEvent = () => {
       .post(
         `https://tugas.website/join/event/${location.state.id}`,
         {
-          type_payment: payments,
+          payment_type: payments,
         },
         {
           headers: {
@@ -55,6 +55,7 @@ const DetailEvent = () => {
   };
   useEffect(() => {
     getDetailEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -102,7 +103,7 @@ const DetailEvent = () => {
           <Form.Group controlId="formBasicRadio" onChange={(e) => setPayments(e.target.value)}>
             <Form.Check label="GOPAY" name="group1" type="radio" value="GOPAY" />
             <Form.Check label="BCA Virtual Account" name="group1" type="radio" value="BCA Virtual Account" />
-            <Form.Check label="Mandiri Virtual Account" name="group1" type="radio" value="Mandiri Virtual Account" />
+            <Form.Check label="Mandiri Virtual Account" name="group1" type="radio" value="MANDIRI Virtual Account" />
           </Form.Group>
         </Modal.Body>
         <Modal.Header>

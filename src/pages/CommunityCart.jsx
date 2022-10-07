@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/Cart.css';
-import { Button, Card, Container, Modal, Stack } from 'react-bootstrap';
-import CommunityNavbar from '../components/CommunityNavbar';
-import { Footer } from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
-import HeaderCommunity from '../components/HeaderCommunity';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React, { useEffect, useState } from "react";
+import "../styles/Cart.css";
+import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
+import CommunityNavbar from "../components/CommunityNavbar";
+import { Footer } from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+import HeaderCommunity from "../components/HeaderCommunity";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { TopNav } from "../components/TopNav";
 
 const CommunityCart = () => {
   const [showMember, setShowMember] = useState(false);
@@ -17,15 +18,13 @@ const CommunityCart = () => {
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
 
-
-
   const navigate = useNavigate();
 
   const getCommunityCart = () => {
     axios
-      .get('https://tugas.website/cart?communityid=1', {
+      .get("https://tugas.website/cart?communityid=1", {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -40,9 +39,9 @@ const CommunityCart = () => {
 
   const getCommunityMembers = () => {
     axios
-      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
+      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -55,15 +54,16 @@ const CommunityCart = () => {
 
   useEffect(() => {
     getCommunityMembers();
-    getCommunityCart()
+    getCommunityCart();
   }, []);
 
   const handleCheckout = () => {
-    navigate('/community/payment');
+    navigate("/community/payment");
   };
 
   return (
     <>
+      <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">

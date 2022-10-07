@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import { useLocation } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
+import { TopNav } from "../components/TopNav";
 
 function PostDetail() {
   const [postDetail, setPostDetail] = useState({});
@@ -51,6 +52,7 @@ function PostDetail() {
 
   return (
     <>
+      <TopNav />
       <CommunityNavbar />
       <Container className="min-vh-100">
         {/* this can be map able */}

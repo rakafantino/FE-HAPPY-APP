@@ -7,6 +7,7 @@ import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
 import ProductCard from "../components/ProductCard";
+import { TopNav } from "../components/TopNav";
 import "../styles/CommunityStore.css";
 
 const CommunityStore = () => {
@@ -39,6 +40,7 @@ const CommunityStore = () => {
       .then((res) => {
         setCommunityStore(res.data.product);
         setCommunityDetails(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +64,7 @@ const CommunityStore = () => {
 
   return (
     <>
+      <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       {communityDetails.role === "admin" ? (
@@ -136,7 +139,11 @@ const CommunityStore = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="text" placeholder="Input Price" autoFocus />
+              <Form.Control type="text" autoFocus />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
+              <Form.Label>Product Image</Form.Label>
+              <Form.Control type="file" autoFocus />
             </Form.Group>
           </Form>
         </Modal.Body>

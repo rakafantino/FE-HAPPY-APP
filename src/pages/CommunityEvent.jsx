@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
+import { TopNav } from "../components/TopNav";
 import "../styles/HomePage.css";
 
 function CommunityEvent() {
@@ -65,6 +66,8 @@ function CommunityEvent() {
     });
   };
 
+  
+
   const addEvent = () => {
     const { title, descriptions, date_event, price, location } = eventData;
     axios
@@ -99,6 +102,7 @@ function CommunityEvent() {
 
   return (
     <>
+      <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">

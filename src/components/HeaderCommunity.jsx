@@ -8,6 +8,7 @@ import { Button, Card } from "react-bootstrap";
 function HeaderCommunity({ handleShow, communityDetails }) {
   const { descriptions, title, members, role } = communityDetails;
 
+  const token = Cookies.get("token");
   const joinCommunity = () => {
     axios
       .post(`https://tugas.website/join/community/${Cookies.get("id")}`, {
@@ -16,7 +17,7 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         },
       })
       .then((res) => {
-        console.log(res.message);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +38,7 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         console.log(err);
       });
   };
+  console.log(token);
 
   return (
     <>

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
+import { TopNav } from "../components/TopNav";
 import "../styles/HomePage.css";
 
 function CommunityDetail() {
@@ -83,6 +84,7 @@ function CommunityDetail() {
   };
   return (
     <>
+      <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
       <Container className="min-vh-100">

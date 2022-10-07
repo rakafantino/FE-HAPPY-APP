@@ -2,10 +2,12 @@ import React from "react";
 import { Card, Container, Stack } from "react-bootstrap";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
+import { TopNav } from "../components/TopNav";
 
 function HistoryOrder() {
   return (
     <>
+      <TopNav />
       <CommunityNavbar />
       <Container className="min-vh-100">
         <h3 className="text-center mt-3">History Order</h3>

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/DetailProduct.css';
-import { TopNav } from '../components/TopNav';
-import { Footer } from '../components/Footer';
+import React, { useEffect, useState } from "react";
+import "../styles/DetailProduct.css";
+import { TopNav } from "../components/TopNav";
+import { Footer } from "../components/Footer";
 import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import CommunityNavbar from '../components/CommunityNavbar';
+import axios from "axios";
+import Cookies from "js-cookie";
+import HeaderCommunity from "../components/HeaderCommunity";
+import CommunityNavbar from "../components/CommunityNavbar";
 
 const DetailProduct = () => {
   const location = useLocation();

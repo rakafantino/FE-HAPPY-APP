@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
@@ -15,6 +15,9 @@ const DetailEvent = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [detailEvent, setDetailEvent] = useState({});
   const [payments, setPayments] = useState("");
+  const [linkPayments, setLinkPayments] = useState("");
+  const [cancelJoin, setCancelJoin] = useState("");
+  const [billNumber, setBillNumber] = useState("");
   const location = useLocation();
 
   const getDetailEvent = () => {
@@ -47,7 +50,12 @@ const DetailEvent = () => {
       )
       .then((res) => {
         setModalShow(false);
-        console.log(res);
+        if (res.data.data.actions) {
+          setLinkPayments(res.data.data.actions[1].url);
+          setCancelJoin(res.data.data.actions[3].url);
+        } else {
+          setBillNumber(res.data.data.bill_number);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -57,6 +65,8 @@ const DetailEvent = () => {
     getDetailEvent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(payments);
   return (
     <>
       <TopNav />
@@ -64,6 +74,41 @@ const DetailEvent = () => {
       <hr></hr>
       <Container className="conde vh-100">
         <CommunityNavbar />
+        {linkPayments ? (
+          <>
+            <div>
+              <Alert variant="success" className="d-flex gap-3 justify-content-center">
+                Silahkan lanjutkan Pembayaran dengan cara klik tombol ini
+                <br />
+                <div className="bg-primary py-1 px-2 rounded">
+                  <a href={linkPayments} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+                    Bayar
+                  </a>
+                </div>
+                <div className="bg-warning py-1 px-2 rounded">
+                  <a href={cancelJoin} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+                    Cancel Join Event
+                  </a>
+                </div>
+              </Alert>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        {billNumber ? (
+          <>
+            <div>
+              <Alert variant="success" className="d-flex gap-3 justify-content-center">
+                Silahkan lanjutkan Pembayaran dengan cara transfer ke VA ini
+                <br />
+                <span className="text-primary">{billNumber}</span>
+              </Alert>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
         <Row className="mt-3">
           <Col lg={{ span: 9, offset: 0 }}>
             <h4>Detail Event</h4>

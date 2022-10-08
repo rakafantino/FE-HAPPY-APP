@@ -63,7 +63,7 @@ function UserProfile() {
       });
   };
 
-  const handleDeleteUser = (item) => {
+  const handleDeleteUser = () => {
     axios
       .delete(`https://tugas.website/user/profile`, {
         headers: {

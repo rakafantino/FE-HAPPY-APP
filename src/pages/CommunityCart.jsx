@@ -1,13 +1,13 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
-import CommunityNavbar from "../components/CommunityNavbar";
-import { Footer } from "../components/Footer";
-import HeaderCommunity from "../components/HeaderCommunity";
-import { TopNav } from "../components/TopNav";
-import "../styles/Cart.css";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Container, Modal, Stack } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import CommunityNavbar from '../components/CommunityNavbar';
+import { Footer } from '../components/Footer';
+import HeaderCommunity from '../components/HeaderCommunity';
+import { TopNav } from '../components/TopNav';
+import '../styles/Cart.css';
 
 const CommunityCart = () => {
   const [showMember, setShowMember] = useState(false);
@@ -23,9 +23,9 @@ const CommunityCart = () => {
 
   const getCommunityCart = () => {
     axios
-      .get(`https://tugas.website/cart?communityid=${Cookies.get("id")}`, {
+      .get(`https://tugas.website/cart?communityid=${Cookies.get('id')}`, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
+          Authorization: 'Bearer ' + Cookies.get('token'),
         },
       })
       .then((res) => {
@@ -39,9 +39,9 @@ const CommunityCart = () => {
 
   const getCommunityMembers = () => {
     axios
-      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
+      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
+          Authorization: 'Bearer ' + Cookies.get('token'),
         },
       })
       .then((res) => {
@@ -56,7 +56,7 @@ const CommunityCart = () => {
     axios
       .delete(`https://tugas.website/cart/${id}`, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
+          Authorization: 'Bearer ' + Cookies.get('token'),
         },
       })
       .then((response) => {
@@ -73,7 +73,7 @@ const CommunityCart = () => {
   }, []);
 
   const handleCheckout = () => {
-    navigate("/community/payment");
+    navigate('/community/payment');
   };
 
   return (
@@ -91,7 +91,7 @@ const CommunityCart = () => {
                 <Card className="text-center mt-3 shadow " key={product.name}>
                   <Card.Header className="fw-bold fs-5 bg-primary text-white">BUY</Card.Header>
                   <Card.Body className="d-flex">
-                    <Card.Img variant="left" src={product.photo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", heigh: "auto" }} />
+                    <Card.Img variant="left" src={product.photo} className="img-fluid rounded ms-3" style={{ width: '15.5rem', heigh: 'auto' }} />
                     <Stack className="gap-2 ms-4 text-start w-50">
                       <Card.Title className="fw-semibold fs-4 ">{product.name}</Card.Title>
                       <Card.Text className="fw-semibold">
@@ -112,14 +112,15 @@ const CommunityCart = () => {
             })}
           </>
         ) : (
-          <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "75vh" }} key={1}>
+          <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '75vh' }} key={1}>
             <h5>No Items In Your Cart</h5>
           </div>
         )}
-
-        <Button className="float-end mt-5" onClick={handleCheckout}>
-          Checkout
-        </Button>
+        <div className='d-flex'>
+          <Button className="ms-auto mt-5 mb-5" onClick={handleCheckout}>
+            Checkout
+          </Button>
+        </div>
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>

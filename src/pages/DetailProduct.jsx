@@ -6,6 +6,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import HeaderCommunity from "../components/HeaderCommunity";
+import CommunityNavbar from "../components/CommunityNavbar";
 
 const DetailProduct = () => {
   const location = useLocation();
@@ -37,6 +39,7 @@ const DetailProduct = () => {
   return (
     <>
       <TopNav />
+      <CommunityNavbar />
       <Container>
         <Row className="rowdp">
           <Col className="coldp1" lg={{ span: 6, offset: 0 }}>

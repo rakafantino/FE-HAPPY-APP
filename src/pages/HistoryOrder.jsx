@@ -1,19 +1,20 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { Card, Container, Stack } from 'react-bootstrap';
-import CommunityNavbar from '../components/CommunityNavbar';
-import { Footer } from '../components/Footer';
-import { TopNav } from '../components/TopNav';
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { Card, Container, Stack } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
+import CommunityNavbar from "../components/CommunityNavbar";
+import { Footer } from "../components/Footer";
+import { TopNav } from "../components/TopNav";
 
 function HistoryOrder() {
   const [orderHistory, setOrderHistory] = useState([]);
 
   const getHistorySelling = (item) => {
     axios
-      .get(`https://tugas.website/community/${Cookies.get('id')}/history`, {
+      .get(`https://tugas.website/community/${Cookies.get("id")}/history`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -49,7 +50,9 @@ function HistoryOrder() {
                       <Card.Text className="fw-semibold fs-6 ">Buyer Name: {historyItem.buyer}</Card.Text>
                     </Stack>
                     <Stack className="justify-content-between ms-4 text-end">
-                      <Card.Text className="fw-semibold fs-6 ">Price : Rp. {historyItem.price}</Card.Text>
+                      <Card.Text className="fw-semibold fs-6 ">
+                        Price : <NumericFormat value={historyItem.price} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+                      </Card.Text>
                     </Stack>
                   </Card.Body>
                 </Card>

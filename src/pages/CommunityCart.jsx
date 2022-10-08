@@ -14,8 +14,6 @@ const CommunityCart = () => {
   const [showMember, setShowMember] = useState(false);
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
-  const location = useLocation();
-
   const [communityCart, setCommunityCart] = useState([]);
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
@@ -119,10 +117,11 @@ const CommunityCart = () => {
             <h5>No Items In Your Cart</h5>
           </div>
         )}
-
-        <Button className="float-end mt-5" onClick={handleCheckout}>
-          Checkout
-        </Button>
+        <div className="d-flex">
+          <Button className="ms-auto my-5" onClick={handleCheckout}>
+            Checkout
+          </Button>
+        </div>
       </Container>
       <Footer />
       <Modal show={showMember} onHide={handleClose}>

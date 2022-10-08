@@ -2,7 +2,7 @@ import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 
 function HeaderCommunity({ handleShow, communityDetails }) {
@@ -41,6 +41,8 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         console.log(err);
       });
   };
+
+  useEffect(() => {}, []);
 
   return (
     <>

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Container, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Container, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
     <>
-      <Container fluid className="bg-primary">
+      <Container fluid className="bg-primary z">
         <footer>
           <Navbar>
             <Container>

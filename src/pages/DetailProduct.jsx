@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from "react";
-import "../styles/DetailProduct.css";
-import { TopNav } from "../components/TopNav";
-import { Footer } from "../components/Footer";
-import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Cookies from "js-cookie";
-import HeaderCommunity from "../components/HeaderCommunity";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
+import { Footer } from "../components/Footer";
+import { TopNav } from "../components/TopNav";
+import "../styles/DetailProduct.css";
 
 const DetailProduct = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showEditProduct, setShowEditProduct] = useState(false);
   const [detailProduct, setDetailProduct] = useState({});
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState("");
   const [productData, setProductData] = useState({
-    name: '',
-    descriptions: '',
-    photo: '',
-    stock: '',
-    price: '',
+    name: "",
+    descriptions: "",
+    photo: "",
+    stock: "",
+    price: "",
   });
 
   const getDetailProduct = () => {
     axios
       .get(`https://tugas.website/store/${location.state.id}`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -53,8 +52,8 @@ const DetailProduct = () => {
         },
         {
           headers: {
-            Authorization: 'Bearer ' + Cookies.get('token'),
-            'Content-Type': 'multipart/form-data',
+            Authorization: "Bearer " + Cookies.get("token"),
+            "Content-Type": "multipart/form-data",
           },
         }
       )
@@ -71,11 +70,11 @@ const DetailProduct = () => {
     axios
       .delete(`https://tugas.website/store/${location.state.id}`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((response) => {
-        navigate('/community/store');
+        navigate("/community/store");
       })
       .catch((err) => {
         console.log(err.message);
@@ -84,15 +83,19 @@ const DetailProduct = () => {
 
   const handleAddToCart = (item) => {
     axios
-      .post('https://tugas.website/cart', {
-        productid: parseInt(`${location.state.id}`)
-      },{
-        headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+      .post(
+        "https://tugas.website/cart",
+        {
+          productid: parseInt(`${location.state.id}`),
         },
-      })
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
+      )
       .then((res) => {
-        alert(res.data.message)
+        alert(res.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -127,13 +130,15 @@ const DetailProduct = () => {
             <h6>Description</h6>
             <p>{descriptions}</p>
           </Col>
-          {role === 'admin' ? (
+          {role === "admin" ? (
             <Col className="coldp3" lg={{ span: 2, offset: 0 }}>
               <Button className="mb-3" onClick={() => setShowEditProduct(true)}>
                 Edit Product
               </Button>
               <br />
-              <Button variant='danger' onClick={handleDeleteProduct}>Delete</Button>
+              <Button variant="danger" onClick={handleDeleteProduct}>
+                Delete
+              </Button>
             </Col>
           ) : (
             <></>
@@ -143,7 +148,9 @@ const DetailProduct = () => {
       <Container>
         <Row className="rowdp2">
           <Col>
-            <Button className="btndp3" onClick={handleAddToCart}>Add to Cart</Button>
+            <Button className="btndp3" onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
           </Col>
         </Row>
       </Container>

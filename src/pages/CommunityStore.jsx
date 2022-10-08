@@ -1,14 +1,14 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { Button, Container, Form, Modal } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import CommunityNavbar from '../components/CommunityNavbar';
-import { Footer } from '../components/Footer';
-import HeaderCommunity from '../components/HeaderCommunity';
-import ProductCard from '../components/ProductCard';
-import { TopNav } from '../components/TopNav';
-import '../styles/CommunityStore.css';
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Form, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import CommunityNavbar from "../components/CommunityNavbar";
+import { Footer } from "../components/Footer";
+import HeaderCommunity from "../components/HeaderCommunity";
+import ProductCard from "../components/ProductCard";
+import { TopNav } from "../components/TopNav";
+import "../styles/CommunityStore.css";
 
 const CommunityStore = () => {
   const [showMember, setShowMember] = useState(false);
@@ -19,11 +19,11 @@ const CommunityStore = () => {
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
   const [productData, setProductData] = useState({
-    name: '',
-    descriptions: '',
-    photo: '',
-    stock: '',
-    price: '',
+    name: "",
+    descriptions: "",
+    photo: "",
+    stock: "",
+    price: "",
   });
 
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ const CommunityStore = () => {
 
   const getCommunityStore = () => {
     axios
-      .get(`https://tugas.website/community/${Cookies.get('id')}/store`, {
+      .get(`https://tugas.website/community/${Cookies.get("id")}/store`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -55,9 +55,9 @@ const CommunityStore = () => {
 
   const getCommunityMembers = () => {
     axios
-      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
+      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
         headers: {
-          Authorization: 'Bearer ' + Cookies.get('token'),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => {
@@ -72,7 +72,7 @@ const CommunityStore = () => {
     const { name, descriptions, photo, stock, price } = productData;
     axios
       .post(
-        `https://tugas.website/community/${Cookies.get('id')}/store`,
+        `https://tugas.website/community/${Cookies.get("id")}/store`,
         {
           name,
           descriptions,
@@ -82,8 +82,8 @@ const CommunityStore = () => {
         },
         {
           headers: {
-            Authorization: 'Bearer ' + Cookies.get('token'),
-            'Content-Type': 'multipart/form-data',
+            Authorization: "Bearer " + Cookies.get("token"),
+            "Content-Type": "multipart/form-data",
           },
         }
       )
@@ -96,14 +96,12 @@ const CommunityStore = () => {
       });
   };
 
-  console.log(productData);
-
   return (
     <>
       <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
-      {communityDetails.role === 'admin' ? (
+      {communityDetails.role === "admin" ? (
         <div className="d-flex flex-column justify-content-center align-items-center my-3">
           <Button className="w-25 mb-2" onClick={() => setShowAddProduct(true)}>
             Add Product

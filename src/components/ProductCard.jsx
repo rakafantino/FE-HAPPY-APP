@@ -9,14 +9,14 @@ const ProductCard = ({ item }) => {
   const handleDetailProduct = (id) => {
     navigate(`/detailproduct/${id}`, {
       state: {
-        id: id
-      }
+        id: id,
+      },
     });
   };
 
   return (
     <div className="divpc d-flex">
-      <Card className="cardpc1 hover" onClick={() => handleDetailProduct (item.id)}>
+      <Card className="cardpc1 hover" onClick={() => handleDetailProduct(item.id)}>
         <Card.Img variant="top" src={item.photo} className="cardimgpc1" />
         <Card.Body>
           <Card.Title>{item.name}</Card.Title>

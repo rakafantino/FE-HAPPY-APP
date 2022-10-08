@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
 import { useLocation, useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
@@ -122,7 +123,10 @@ const DetailProduct = () => {
           <Col className="coldp2" lg={{ span: 4, offset: 0 }}>
             <h5 className="mb-4">{name}</h5>
             <h6>
-              Price : <span>Rp {price}</span>
+              Price :
+              <span>
+                <NumericFormat value={price} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+              </span>
             </h6>
             <h6 className="mb-4">
               Quantity : <span>{stock}</span>

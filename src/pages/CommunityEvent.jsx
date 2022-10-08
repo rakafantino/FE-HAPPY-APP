@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
 import Moment from "react-moment";
+import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
@@ -42,6 +43,7 @@ function CommunityEvent() {
 
     setCommunityEvent(res.data.event);
     setCommunityDetails(res.data);
+    console.log(res);
   };
 
   const getCommunityMembers = async () => {
@@ -65,9 +67,7 @@ function CommunityEvent() {
       },
     });
   };
-
-  
-
+  console.log(eventData);
   const addEvent = () => {
     const { title, descriptions, date_event, price, location } = eventData;
     axios
@@ -89,7 +89,6 @@ function CommunityEvent() {
       .then((res) => {
         getCommunityEvent();
         setShowAddEvent(false);
-        console.log(res);
       })
       .catch((err) => console.log(err));
   };
@@ -132,7 +131,10 @@ function CommunityEvent() {
                       <Card.Text className="fw-semibold fs-6 ">
                         <Moment format="DD-MM-YYYY">{event.date}</Moment>
                       </Card.Text>
-                      <Card.Text className="fw-semibold fs-6 ">Harga Event : Rp.{event.price}</Card.Text>
+                      <Card.Text className="fw-semibold fs-6 ">
+                        Harga Event :
+                        <NumericFormat value={event.price} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+                      </Card.Text>
                     </Stack>
                   </Card.Body>
                 </Card>
@@ -155,7 +157,11 @@ function CommunityEvent() {
         </Modal.Header>
         <Modal.Body>
           {communityMembers.map((member) => {
-            return <h5 className="text-capitalize">{member}</h5>;
+            return (
+              <h5 className="text-capitalize" key={member}>
+                {member}
+              </h5>
+            );
           })}
         </Modal.Body>
         <Modal.Footer>

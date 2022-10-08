@@ -6,6 +6,7 @@ import { TopNav } from "../components/TopNav";
 import CommunityNavbar from "../components/CommunityNavbar";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { NumericFormat } from "react-number-format";
 
 const CommunityPayment = () => {
   const [cartDetail, setCartDetail] = useState({});
@@ -89,7 +90,10 @@ const CommunityPayment = () => {
                   Shipping : <span> Free </span>
                 </h5>
                 <h5>
-                  Total Price : <span> Rp. {cartDetail.total} </span>
+                  Total Price :
+                  <span>
+                    <NumericFormat value={cartDetail.total} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+                  </span>
                 </h5>
               </Card.Text>
             </Stack>

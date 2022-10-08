@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
 import { useLocation, useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
@@ -101,7 +102,9 @@ const CommunityCart = () => {
                       </Card.Text>
                     </Stack>
                     <Stack className="justify-content-between ms-4 text-end">
-                      <Card.Text className="fw-semibold fs-6 ">Price : Rp. {product.price}</Card.Text>
+                      <Card.Text className="fw-semibold fs-6 ">
+                        Price : <NumericFormat value={product.price} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+                      </Card.Text>
                       <Button variant="danger" className="btncart" onClick={() => handleDeleteCart(product.cartid)}>
                         Cancel
                       </Button>

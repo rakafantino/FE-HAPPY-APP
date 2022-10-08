@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { BsCalendar2Date } from "react-icons/bs";
+import { NumericFormat } from "react-number-format";
 import { useLocation } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
@@ -129,7 +130,10 @@ const DetailEvent = () => {
                 Total Participants : <span>{detailEvent.partisipasi}</span>
               </ListGroup.Item>
               <ListGroup.Item>
-                Price : <span>Rp.{detailEvent.price}</span>
+                Price:
+                <span>
+                  <NumericFormat value={detailEvent.price} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+                </span>
               </ListGroup.Item>
             </ListGroup>
             <Button className="mt-3" onClick={() => setModalShow(true)}>
@@ -159,7 +163,10 @@ const DetailEvent = () => {
             Total Item : <span>1</span>
           </h6>
           <h6>
-            Total Price : <span>Rp. {detailEvent.price}</span>
+            Total Price :
+            <span>
+              <NumericFormat value={detailEvent.price} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
+            </span>
           </h6>
         </Modal.Body>
         <Modal.Footer>

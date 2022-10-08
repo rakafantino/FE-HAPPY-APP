@@ -1,14 +1,14 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import CommunityNavbar from "../components/CommunityNavbar";
-import { Footer } from "../components/Footer";
-import HeaderCommunity from "../components/HeaderCommunity";
-import ProductCard from "../components/ProductCard";
-import { TopNav } from "../components/TopNav";
-import "../styles/CommunityStore.css";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Form, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import CommunityNavbar from '../components/CommunityNavbar';
+import { Footer } from '../components/Footer';
+import HeaderCommunity from '../components/HeaderCommunity';
+import ProductCard from '../components/ProductCard';
+import { TopNav } from '../components/TopNav';
+import '../styles/CommunityStore.css';
 
 const CommunityStore = () => {
   const [showMember, setShowMember] = useState(false);
@@ -18,6 +18,13 @@ const CommunityStore = () => {
   const [communityStore, setCommunityStore] = useState([]);
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
+  const [productData, setProductData] = useState({
+    name: '',
+    descriptions: '',
+    photo: '',
+    stock: '',
+    price: '',
+  });
 
   const navigate = useNavigate();
 
@@ -32,15 +39,14 @@ const CommunityStore = () => {
 
   const getCommunityStore = () => {
     axios
-      .get(`https://tugas.website/community/${Cookies.get("id")}/store`, {
+      .get(`https://tugas.website/community/${Cookies.get('id')}/store`, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
+          Authorization: 'Bearer ' + Cookies.get('token'),
         },
       })
       .then((res) => {
         setCommunityStore(res.data.product);
         setCommunityDetails(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -49,9 +55,9 @@ const CommunityStore = () => {
 
   const getCommunityMembers = () => {
     axios
-      .get(`https://tugas.website/community/members/${Cookies.get("id")}`, {
+      .get(`https://tugas.website/community/members/${Cookies.get('id')}`, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
+          Authorization: 'Bearer ' + Cookies.get('token'),
         },
       })
       .then((res) => {
@@ -62,12 +68,42 @@ const CommunityStore = () => {
       });
   };
 
+  const addProducts = () => {
+    const { name, descriptions, photo, stock, price } = productData;
+    axios
+      .post(
+        `https://tugas.website/community/${Cookies.get('id')}/store`,
+        {
+          name,
+          descriptions,
+          photo,
+          stock: parseInt(stock),
+          price: parseInt(price),
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + Cookies.get('token'),
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then((res) => {
+        setShowAddProduct(false);
+        getCommunityStore();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(productData);
+
   return (
     <>
       <TopNav />
       <HeaderCommunity handleShow={handleShow} communityDetails={communityDetails} />
       <CommunityNavbar />
-      {communityDetails.role === "admin" ? (
+      {communityDetails.role === 'admin' ? (
         <div className="d-flex flex-column justify-content-center align-items-center my-3">
           <Button className="w-25 mb-2" onClick={() => setShowAddProduct(true)}>
             Add Product
@@ -85,7 +121,7 @@ const CommunityStore = () => {
             {communityStore.map((item) => {
               return (
                 <div>
-                  <ProductCard item={item} />;
+                  <ProductCard item={item} />
                 </div>
               );
             })}
@@ -127,23 +163,23 @@ const CommunityStore = () => {
           <Form>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput1">
               <Form.Label>Product Name</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setProductData({ ...productData, name: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlTextarea1">
               <Form.Label>Product Description</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control as="textarea" rows={3} onChange={(e) => setProductData({ ...productData, descriptions: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">
               <Form.Label>Quantity</Form.Label>
-              <Form.Control type="number" autoFocus />
+              <Form.Control type="number" autoFocus onChange={(e) => setProductData({ ...productData, stock: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="text" autoFocus />
+              <Form.Control type="text" autoFocus onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Product Image</Form.Label>
-              <Form.Control type="file" autoFocus />
+              <Form.Control type="file" autoFocus onChange={(e) => setProductData({ ...productData, photo: e.target.files[0] })} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -151,7 +187,7 @@ const CommunityStore = () => {
           <Button variant="secondary" onClick={() => setShowAddProduct(false)}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => setShowAddProduct(false)}>
+          <Button variant="primary" onClick={addProducts}>
             Create Product
           </Button>
         </Modal.Footer>

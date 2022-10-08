@@ -38,7 +38,6 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         console.log(err);
       });
   };
-  console.log(token);
 
   return (
     <>

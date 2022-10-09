@@ -7490,7 +7490,7 @@ react-lifecycles-compat@^3.0.4:
 
 react-moment@^1.1.2:
   version "1.1.2"
-  resolved "https://registry.npmjs.org/react-moment/-/react-moment-1.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-1.1.2.tgz#a9b157c58ddd226a2f746e5ca43415b24a17b6af"
   integrity sha512-lfb+shYXI2tXlQrNUpNr05/1D/kzFj8Isbfp89DQrpZk0fs2JIAnLHWETR0hQS9zvtzwLWlVv0wKLffbue5HoA==
 
 react-number-format@^5.0.1:

@@ -49,13 +49,13 @@ function EventList() {
             <>
               {events.map((event) => {
                 return (
-                  <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent(event.id)} key={event.id}>
+                  <Card className="text-center mt-3 mb-4 shadow hover" onClick={() => handleDetailEvent(event.id)} key={event.id}>
                     <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
                     <Card.Body className="d-flex">
-                      <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
+                      <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3 d-none d-md-block" style={{ width: "15.5rem", height: "auto" }} />
                       <Stack className="gap-2 ms-4 text-start">
                         <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
-                        <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
+                        <Card.Text className="fw-semibold fs-6 d-none d-md-block ">{event.descriptions}</Card.Text>
                       </Stack>
                       <Stack className="justify-content-between ms-4 text-end">
                         <Card.Text className="fw-semibold fs-6 ">

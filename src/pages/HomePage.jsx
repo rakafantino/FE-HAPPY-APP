@@ -48,12 +48,12 @@ function HomePage() {
             <>
               {communities.map((community) => {
                 return (
-                  <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailCommunity(community.id)} key={community.id}>
+                  <Card className="text-center mt-3 mb-4 shadow hover" onClick={() => handleDetailCommunity(community.id)} key={community.id}>
                     <Card.Header className="fw-bold fs-5 bg-primary text-white text-uppercase">{community.title}</Card.Header>
                     <Card.Body className="d-flex">
                       <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
                       <Stack className="gap-2">
-                        <Card.Text className="fw-semibold fs-6 pe-4 me-4">{community.descriptions}</Card.Text>
+                        <Card.Text className="fw-semibold fs-6 pe-4 me-4 d-none d-md-block">{community.descriptions}</Card.Text>
                       </Stack>
                     </Card.Body>
                     <Card.Footer className="text-center text-md-end">Jumlah Anggota:{community.members}</Card.Footer>

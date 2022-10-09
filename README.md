@@ -5,7 +5,7 @@ Happy App ini dibuat dalam tujuan untuk menyelesaikan tugas Project Capstone Tea
 
 ## Kandungan yang berada di dalam repo, yaitu :
 
-## 1. [React JS](https://reactjs.org/docs/create-a-new-react-app.html)
+### 1. [React JS](https://reactjs.org/docs/create-a-new-react-app.html)
 ## 2. [React Router Dom](https://www.npmjs.com/package/react-router-dom)
 ## 3. [Axios](https://www.npmjs.com/package/axios)
 ## 4. [React-Bootstrap](https://reactjs.org/)

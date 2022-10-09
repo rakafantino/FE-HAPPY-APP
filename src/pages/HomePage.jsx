@@ -55,7 +55,7 @@ function HomePage() {
                         <Card.Img variant="left" src={community.logo} className="img-fluid rounded w-100 h-auto" style={{ objectFit: "fill" }} />
                       </div>
                       <Stack className="gap-2">
-                        <Card.Text className="fw-semibold fs-6 pe-4 me-4 d-none d-md-block">{community.descriptions}</Card.Text>
+                        <Card.Text className="fw-semibold fs-6 pe-4 me-4 d-none d-md-block">{community.descriptions.slice(0, 80)}...</Card.Text>
                       </Stack>
                     </Card.Body>
                     <Card.Footer className="text-center text-md-end">Jumlah Anggota:{community.members}</Card.Footer>

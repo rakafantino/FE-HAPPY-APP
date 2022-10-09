@@ -72,7 +72,7 @@ function PostDetail() {
                 <>
                   {postDetail.comments.map((comment) => {
                     return (
-                      <Card className="my-3" key={comment.id} style={{ height: "6.5rem" }}>
+                      <Card className="my-3" key={comment.id}>
                         <Card.Header className="px-auto d-block">
                           <span className="float-start fw-regular fs-5 ms-3 mt-2">{comment.name}</span>{" "}
                           <span className="float-end fw-regular fs-5 me-3 mt-2">

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
@@ -48,8 +49,8 @@ const DetailProduct = () => {
           name,
           descriptions,
           photo,
-          stock: parseInt(stock),
-          price: parseInt(price),
+          stock,
+          price,
         },
         {
           headers: {
@@ -60,6 +61,11 @@ const DetailProduct = () => {
       )
       .then((res) => {
         setShowEditProduct(false);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Edit Product",
+        });
         getDetailProduct();
       })
       .catch((err) => {
@@ -75,6 +81,11 @@ const DetailProduct = () => {
         },
       })
       .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Delete Product",
+        });
         navigate("/community/store");
       })
       .catch((err) => {
@@ -96,7 +107,11 @@ const DetailProduct = () => {
         }
       )
       .then((res) => {
-        alert(res.data.message);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Adding Item To Cart",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -177,11 +192,11 @@ const DetailProduct = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput3">
               <Form.Label>Quantity</Form.Label>
-              <Form.Control type="number" autoFocus onChange={(e) => setProductData({ ...productData, stock: e.target.value })} />
+              <Form.Control type="number" autoFocus onChange={(e) => setProductData({ ...productData, stock: parseInt(e.target.value) })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="text" autoFocus onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
+              <Form.Control type="text" autoFocus onChange={(e) => setProductData({ ...productData, price: parseInt(e.target.value) })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="addEventForm.ControlInput4">
               <Form.Label>Product Image</Form.Label>

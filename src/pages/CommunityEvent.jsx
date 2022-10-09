@@ -5,6 +5,7 @@ import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
 import Moment from "react-moment";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
@@ -31,7 +32,6 @@ function CommunityEvent() {
     location: "",
   });
 
-  
   const getCommunityEvent = async () => {
     const res = await axios.get(`https://tugas.website/community/${Cookies.get("id")}/event`, {
       headers: {
@@ -88,6 +88,11 @@ function CommunityEvent() {
       .then((res) => {
         getCommunityEvent();
         setShowAddEvent(false);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Create An Event",
+        });
       })
       .catch((err) => console.log(err));
   };

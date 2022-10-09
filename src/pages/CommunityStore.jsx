@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
@@ -47,6 +48,7 @@ const CommunityStore = () => {
       .then((res) => {
         setCommunityStore(res.data.product);
         setCommunityDetails(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -89,6 +91,11 @@ const CommunityStore = () => {
       )
       .then((res) => {
         setShowAddProduct(false);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Create Product",
+        });
         getCommunityStore();
       })
       .catch((err) => {

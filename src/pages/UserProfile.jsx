@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Container, Form, Image, Modal, Row, Stack, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { TopNav } from "../components/TopNav";
 
 function UserProfile() {
@@ -36,10 +37,10 @@ function UserProfile() {
   const isLogedIn = Cookies.get("token");
 
   useEffect(() => {
-    getUserProfle();
+    getUserProfile();
   }, []);
 
-  const getUserProfle = () => {
+  const getUserProfile = () => {
     axios
       .get("https://tugas.website/user/profile", {
         headers: { Authorization: "Bearer " + Cookies.get("token") },
@@ -97,8 +98,12 @@ function UserProfile() {
       )
       .then((res) => {
         setShowEditProfile(false);
-        getUserProfle();
-        console.log(photo);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Edit Profile",
+        });
+        getUserProfile();
       })
       .catch((err) => {
         console.error(err);
@@ -129,9 +134,13 @@ function UserProfile() {
         }
       )
       .then((response) => {
-        console.log(response);
         setShowCreateCommunity(false);
-        getUserProfle();
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Create Community",
+        });
+        getUserProfile();
       })
       .catch((error) => {
         console.error(error);
@@ -157,11 +166,21 @@ function UserProfile() {
       )
       .then((response) => {
         setShowEditCommunity(false);
-        getUserProfle();
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Edit Community",
+        });
+        getUserProfile();
       })
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handleDetailCommunity = (id) => {
+    Cookies.set("id", id);
+    navigate("/community/feed");
   };
 
   return (
@@ -226,7 +245,7 @@ function UserProfile() {
             <Row className="d-flex flex-column">
               {userCommunities.map((community) => {
                 return (
-                  <Col key={community.id}>
+                  <Col key={community.id} onClick={() => handleDetailCommunity(community.id)}>
                     <Card className="text-center mt-3 shadow hover">
                       <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
                       <Card.Body className="d-flex">

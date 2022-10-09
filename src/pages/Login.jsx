@@ -5,6 +5,7 @@ import cookie from "js-cookie";
 import React, { useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "../styles/Login.css";
 
 const Login = () => {
@@ -19,8 +20,13 @@ const Login = () => {
         email,
         password,
       })
-      .then(function (response) {
+      .then(async function (response) {
         cookie.set("token", response.data.access_token);
+        await Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Login",
+        });
         navigate("/community");
       })
       .catch(function (error) {

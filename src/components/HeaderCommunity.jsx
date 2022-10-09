@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 function HeaderCommunity({ handleShow, communityDetails }) {
   const { descriptions, title, members, role } = communityDetails;
@@ -20,7 +21,11 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         }
       )
       .then((res) => {
-        console.log(res);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Join Community",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +40,11 @@ function HeaderCommunity({ handleShow, communityDetails }) {
         },
       })
       .then((res) => {
-        console.log(res);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Leave Community",
+        });
       })
       .catch((err) => {
         console.log(err);

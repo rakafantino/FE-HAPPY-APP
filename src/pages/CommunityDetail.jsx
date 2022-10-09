@@ -41,9 +41,11 @@ function CommunityDetail() {
       })
       .then((res) => {
         setCommunityMembers(res.data.data);
+        setFeedContent("");
       })
       .catch((err) => {
         console.error(err);
+        setFeedContent("");
       });
   };
 
@@ -61,8 +63,8 @@ function CommunityDetail() {
         }
       )
       .then((res) => {
-        getCommunityFeed();
         setFeedContent("");
+        getCommunityFeed();
       })
       .catch((err) => {
         setError(err.response.data.message);
@@ -100,7 +102,7 @@ function CommunityDetail() {
           <Card.Header as="h5">Post Something</Card.Header>
           <Card.Body>
             <div className="mb-3">
-              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write Something..." onChange={(e) => setFeedContent(e.target.value)}></textarea>
+              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={feedContent} placeholder="Write Something..." onChange={(e) => setFeedContent(e.target.value)}></textarea>
             </div>
             <Button variant="primary" className="float-end" onClick={postFeed}>
               Post

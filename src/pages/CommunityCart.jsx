@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Modal, Stack } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import HeaderCommunity from "../components/HeaderCommunity";
@@ -30,6 +30,7 @@ const CommunityCart = () => {
       .then((res) => {
         setCommunityCart(res.data.listcarts);
         setCommunityDetails(res.data.community);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);

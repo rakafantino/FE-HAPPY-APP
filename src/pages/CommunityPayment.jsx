@@ -1,17 +1,19 @@
+import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import "../styles/CommunityPayment.css";
-import { Alert, Button, Card, Container, Form, Stack } from "react-bootstrap";
+import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
+import { useNavigate } from "react-router-dom";
+import CommunityNavbar from "../components/CommunityNavbar";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
-import CommunityNavbar from "../components/CommunityNavbar";
-import Cookies from "js-cookie";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { NumericFormat } from "react-number-format";
+import "../styles/CommunityPayment.css";
 
 const CommunityPayment = () => {
   const [cartDetail, setCartDetail] = useState({});
   const [cartId, setCartId] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccessVA, setShowSuccessVA] = useState(false);
   const [linkPayments, setLinkPayments] = useState("");
   const [cancelJoin, setCancelJoin] = useState("");
   const [billNumber, setBillNumber] = useState("");
@@ -63,8 +65,10 @@ const CommunityPayment = () => {
         if (res.data.actions) {
           setLinkPayments(res.data.actions[1].url);
           setCancelJoin(res.data.actions[3].url);
+          setShowSuccess(true);
         } else {
           setBillNumber(res.data.bill_number);
+          setShowSuccessVA(true);
         }
       })
       .catch((err) => {
@@ -145,41 +149,6 @@ const CommunityPayment = () => {
             </Stack>
           </Card.Body>
         </Card>
-        {linkPayments ? (
-          <>
-            <div>
-              <Alert variant="success" className="d-flex gap-3 justify-content-center">
-                Silahkan lanjutkan Pembayaran dengan cara klik tombol ini
-                <br />
-                <div className="bg-primary py-1 px-2 rounded">
-                  <a href={linkPayments} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
-                    Bayar
-                  </a>
-                </div>
-                <div className="bg-warning py-1 px-2 rounded">
-                  <a href={cancelJoin} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
-                    Cancel Pembayaran
-                  </a>
-                </div>
-              </Alert>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-        {billNumber ? (
-          <>
-            <div>
-              <Alert variant="success" className="d-flex gap-3 justify-content-center">
-                Silahkan lanjutkan Pembayaran dengan cara transfer ke VA ini
-                <br />
-                <span className="text-primary">{billNumber}</span>
-              </Alert>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
         <Button className="btnconfirmpayment" onClick={handleCheckout}>
           Confirm
         </Button>
@@ -188,6 +157,56 @@ const CommunityPayment = () => {
         </Button>
       </Container>
       <Footer />
+
+      {/* Modal Success Join Gopay */}
+      <Modal show={showSuccess} onHide={() => setShowSuccess(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success Join The Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Silahkan Lanjutkan Pembayaran dengan cara klik tombol Bayar</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowSuccess(false);
+              window.location = cancelJoin;
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setShowSuccess(false);
+              window.open(`${linkPayments}`, "_blank");
+            }}
+          >
+            Bayar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Modal Success Join End */}
+
+      {/* Modal Success Join VA */}
+      <Modal show={showSuccessVA} onHide={() => setShowSuccessVA(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success Join The Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Silahkan Lanjutkan Pembayaran dengan cara transfer ke nomor Virtual Account berikut: <br /> <span className="fw-bold fs-5">{billNumber}</span>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setShowSuccessVA(false);
+            }}
+          >
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Modal Success Join VA end */}
     </>
   );
 };

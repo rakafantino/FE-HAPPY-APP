@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "../styles/Register.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,7 +36,11 @@ const Login = () => {
   const klikDaftar = async () => {
     await axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Success Create An Account Please Check Your Email To Verified Account",
+        });
         navigate("/");
       })
       .catch((error) => {
@@ -87,6 +92,9 @@ const Login = () => {
               <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
             </Form.Group>
           </Form>
+          <div>
+            Already have an account? <Link to="/">Login</Link>
+          </div>
           <Button className="logbtn" onClick={() => klikDaftar()}>
             SIGN UP
           </Button>

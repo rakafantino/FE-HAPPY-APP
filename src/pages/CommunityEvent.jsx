@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Form, Modal, Stack } from "react-bootstrap";
@@ -13,15 +14,14 @@ import "../styles/HomePage.css";
 function CommunityEvent() {
   const [showMember, setShowMember] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
-
   const handleClose = () => setShowMember(false);
   const handleShow = () => setShowMember(true);
-
   const handleCloseModalEvent = () => setShowAddEvent(false);
   const handleShowModalEvent = () => setShowAddEvent(true);
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityEvent, setCommunityEvent] = useState([]);
   const [communityDetails, setCommunityDetails] = useState({});
+  const navigate = useNavigate();
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -31,9 +31,7 @@ function CommunityEvent() {
     location: "",
   });
 
-  const navigate = useNavigate();
-  var axios = require("axios");
-
+  
   const getCommunityEvent = async () => {
     const res = await axios.get(`https://tugas.website/community/${Cookies.get("id")}/event`, {
       headers: {
@@ -60,6 +58,7 @@ function CommunityEvent() {
         console.error(err);
       });
   };
+
   const handleDetailEvent = (id) => {
     navigate(`/detailevent/${id}`, {
       state: {
@@ -67,7 +66,7 @@ function CommunityEvent() {
       },
     });
   };
-  console.log(eventData);
+
   const addEvent = () => {
     const { title, descriptions, date_event, price, location } = eventData;
     axios

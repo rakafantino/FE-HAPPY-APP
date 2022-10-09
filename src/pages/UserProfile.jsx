@@ -6,23 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { TopNav } from "../components/TopNav";
 
 function UserProfile() {
-  const [editProfile, setEditProfile] = useState(false);
+  const [showeditProfile, setShowEditProfile] = useState(false);
   const [showCreateCommunity, setShowCreateCommunity] = useState(false);
   const [showEditCommunity, setShowEditCommunity] = useState(false);
   const [showDeleteAccount, setShowDeleteAccount] = useState(false);
   const [userData, setUserData] = useState({});
   const [userCommunities, setUserCommunities] = useState([]);
   const [getCommunityId, setGetCommunityId] = useState("");
-  // buka tutup Modal
-  const handleCloseEdit = () => setEditProfile(false);
-  const handleShowEdit = () => setEditProfile(true);
-  const handleCloseCreate = () => setShowCreateCommunity(false);
-  const handleShowCreate = () => setShowCreateCommunity(true);
-  const handleCloseEditCommunity = () => setShowEditCommunity(false);
-  const handleShowEditCommunity = () => setShowEditCommunity(true);
-  const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
-  const handleShowDeleteAccount = () => setShowDeleteAccount(true);
-  // Akhir Buka Tutup Modal
   const navigate = useNavigate();
 
   const [editUserInfo, setEditUserInfo] = useState({
@@ -71,7 +61,7 @@ function UserProfile() {
         },
       })
       .then((response) => {
-        handleCloseDeleteAccount();
+        setShowDeleteAccount(false);
         navigate("/");
       })
       .catch((err) => {
@@ -106,7 +96,7 @@ function UserProfile() {
         }
       )
       .then((res) => {
-        setEditProfile(false);
+        setShowEditProfile(false);
         getUserProfle();
         console.log(photo);
       })
@@ -183,8 +173,10 @@ function UserProfile() {
             <Card.Header className="fw-semibold fs-4 bg-primary text-white">User Profile</Card.Header>
             <Card.Body>
               <Row>
-                <Col md={4} xs="auto">
-                  <Image src={userData.photo} className="img-fluid rounded-circle overflow-hidden" style={{ width: "12.5rem", height: "auto" }} />
+                <Col md={4} xs="auto" className="d-flex justify-content-center">
+                  <div className="rounded-circle overflow-hidden" style={{ width: "12.5rem", height: "12.5rem" }}>
+                    <Image src={userData.photo} className="img-fluid " />
+                  </div>
                 </Col>
                 <Col md={4} xs="auto" className="d-flex justify-content-center">
                   <Table className="text-start ">
@@ -206,13 +198,13 @@ function UserProfile() {
                 </Col>
                 <Col md={4} xs="auto">
                   <Stack className="gap-4 mt-5 align-items-center">
-                    <Button size="sm" className="w-50" onClick={handleShowEdit}>
+                    <Button size="sm" className="w-50" onClick={() => setShowEditProfile(true)}>
                       Edit Profile
                     </Button>
                     <Button size="sm" className="w-50" onClick={handleLogout}>
                       Logout
                     </Button>
-                    <Button size="sm" variant="danger" className="w-50" onClick={handleShowDeleteAccount}>
+                    <Button size="sm" variant="danger" className="w-50" onClick={() => setShowDeleteAccount(true)}>
                       Delete Account
                     </Button>
                   </Stack>
@@ -226,7 +218,7 @@ function UserProfile() {
                 <h4>My Community</h4>
               </Col>
               <Col>
-                <Button size="sm float-end" onClick={() => handleShowCreate()}>
+                <Button size="sm float-end" onClick={() => setShowCreateCommunity(true)}>
                   Create Community
                 </Button>
               </Col>
@@ -247,22 +239,14 @@ function UserProfile() {
                             size="sm"
                             className="float-end w-25 h-25 my-auto"
                             onClick={() => {
-                              handleShowEditCommunity();
+                              setShowEditCommunity(true);
                               setGetCommunityId(community.id);
                             }}
                           >
                             Edit Community
                           </Button>
                         ) : (
-                          <Button
-                            size="sm"
-                            className="float-end w-25 h-25 my-auto"
-                            onClick={() => {
-                              handleShowEditCommunity();
-                              setGetCommunityId(community.id);
-                            }}
-                            disabled
-                          >
+                          <Button size="sm" className="float-end w-25 h-25 my-auto" disabled>
                             Edit Community
                           </Button>
                         )}
@@ -283,7 +267,7 @@ function UserProfile() {
       )}
 
       {/* Start Modal Edit Profile */}
-      <Modal show={editProfile} onHide={handleCloseEdit}>
+      <Modal show={showeditProfile} onHide={() => setShowEditProfile(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Edit User Profile</Modal.Title>
         </Modal.Header>
@@ -312,7 +296,7 @@ function UserProfile() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
+          <Button variant="secondary" onClick={() => setShowEditProfile(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmitEdit}>
@@ -323,7 +307,7 @@ function UserProfile() {
       {/* End Modal Edit Profile */}
 
       {/* Start Modal Create Community */}
-      <Modal show={showCreateCommunity} onHide={handleCloseCreate}>
+      <Modal show={showCreateCommunity} onHide={() => setShowCreateCommunity(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create Community</Modal.Title>
         </Modal.Header>
@@ -344,7 +328,7 @@ function UserProfile() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseCreate}>
+          <Button variant="secondary" onClick={() => setShowCreateCommunity(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleCreateCommunity}>
@@ -355,7 +339,7 @@ function UserProfile() {
       {/* End Modal Create Community */}
 
       {/* Start Modal Edit Community */}
-      <Modal show={showEditCommunity} onHide={handleCloseEditCommunity}>
+      <Modal show={showEditCommunity} onHide={() => setShowEditCommunity(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Community</Modal.Title>
         </Modal.Header>
@@ -376,7 +360,7 @@ function UserProfile() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditCommunity}>
+          <Button variant="secondary" onClick={() => setShowEditCommunity(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleEditCommunity}>
@@ -387,7 +371,7 @@ function UserProfile() {
       {/* End Modal Edit Community */}
 
       {/* Start Modal Delete Account */}
-      <Modal show={showDeleteAccount} onHide={handleCloseDeleteAccount}>
+      <Modal show={showDeleteAccount} onHide={() => setShowDeleteAccount(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Are You Sure Want To Delete this Account ?</Modal.Title>
         </Modal.Header>
@@ -396,7 +380,7 @@ function UserProfile() {
           If You Sure Click Yes.
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteAccount}>
+          <Button variant="secondary" onClick={() => setShowDeleteAccount(false)}>
             Never Mind
           </Button>
           <Button variant="danger" onClick={handleDeleteUser}>

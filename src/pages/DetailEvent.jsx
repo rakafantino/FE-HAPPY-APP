@@ -11,9 +11,12 @@ import { Footer } from "../components/Footer";
 import HeadEvent from "../components/HeadEvent";
 import { TopNav } from "../components/TopNav";
 import "../styles/DetailEvent.css";
+import Swal from "sweetalert2";
 
 const DetailEvent = () => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccessVA, setShowSuccessVA] = useState(false);
   const [detailEvent, setDetailEvent] = useState({});
   const [payments, setPayments] = useState("");
   const [linkPayments, setLinkPayments] = useState("");
@@ -51,11 +54,14 @@ const DetailEvent = () => {
       )
       .then((res) => {
         setModalShow(false);
+
         if (res.data.data.actions) {
           setLinkPayments(res.data.data.actions[1].url);
           setCancelJoin(res.data.data.actions[3].url);
+          setShowSuccess(true);
         } else {
           setBillNumber(res.data.data.bill_number);
+          setShowSuccessVA(true);
         }
       })
       .catch((err) => {
@@ -66,8 +72,6 @@ const DetailEvent = () => {
     getDetailEvent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(payments);
   return (
     <>
       <TopNav />
@@ -75,7 +79,7 @@ const DetailEvent = () => {
       <hr></hr>
       <Container className="conde vh-100">
         <CommunityNavbar />
-        {linkPayments ? (
+        {/* {linkPayments ? (
           <>
             <div>
               <Alert variant="success" className="d-flex gap-3 justify-content-center">
@@ -109,7 +113,7 @@ const DetailEvent = () => {
           </>
         ) : (
           <></>
-        )}
+        )} */}
         <Row className="mt-3">
           <Col lg={{ span: 9, offset: 0 }}>
             <h4>Detail Event</h4>
@@ -143,7 +147,7 @@ const DetailEvent = () => {
         </Row>
       </Container>
       <Footer />
-
+      {/* Modal Payments Start */}
       <Modal show={modalShow} size="lg" aria-labelledby="contained-modal-title-vcenter" centered onHide={() => setModalShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">Payment Method</Modal.Title>
@@ -173,6 +177,57 @@ const DetailEvent = () => {
           <Button onClick={joinEvent}>Confirm</Button>
         </Modal.Footer>
       </Modal>
+      {/* Modal Payments End */}
+
+      {/* Modal Success Join Gopay */}
+      <Modal show={showSuccess} onHide={() => setShowSuccess(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success Join The Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Silahkan Lanjutkan Pembayaran dengan cara klik tombol Bayar</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowSuccess(false);
+              window.location = cancelJoin;
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setShowSuccess(false);
+              window.open(`${linkPayments}`, "_blank");
+            }}
+          >
+            Bayar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Modal Success Join End */}
+
+      {/* Modal Success Join VA */}
+      <Modal show={showSuccessVA} onHide={() => setShowSuccessVA(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success Join The Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Silahkan Lanjutkan Pembayaran dengan cara transfer ke nomor Virtual Account berikut: <br /> {billNumber}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setShowSuccessVA(false);
+            }}
+          >
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Modal Success Join VA end */}
     </>
   );
 };

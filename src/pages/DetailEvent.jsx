@@ -22,6 +22,7 @@ const DetailEvent = () => {
   const [linkPayments, setLinkPayments] = useState("");
   const [cancelJoin, setCancelJoin] = useState("");
   const [billNumber, setBillNumber] = useState("");
+  const [billerCode, setBillerCode] = useState("");
   const location = useLocation();
 
   const getDetailEvent = () => {
@@ -60,11 +61,13 @@ const DetailEvent = () => {
           setCancelJoin(res.data.data.actions[3].url);
           setShowSuccess(true);
         } else {
+          console.log(res);
           if (res.data.data.bill_number) {
             setBillNumber(res.data.data.bill_number);
             setShowSuccessVA(true);
           } else {
             setBillNumber(res.data.data.bill_key);
+            setBillerCode(res.data.data.biller_code);
             setShowSuccessVA(true);
           }
         }
@@ -189,7 +192,14 @@ const DetailEvent = () => {
           <Modal.Title>Success Join The Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Silahkan Lanjutkan Pembayaran dengan cara transfer ke nomor Virtual Account berikut: <br /> <span className="fw-bold fs-5">{billNumber}</span>
+          Silahkan Lanjutkan Pembayaran dengan cara transfer ke nomor Virtual Account berikut: <br /> <span className="fw-bold fs-5">{billNumber}</span>{" "}
+          {billerCode ? (
+            <>
+              <br /> <p className="fw-bold fs-5">Biller Code: {billerCode}</p>
+            </>
+          ) : (
+            <></>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button

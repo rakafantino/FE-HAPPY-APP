@@ -17,6 +17,7 @@ const CommunityPayment = () => {
   const [linkPayments, setLinkPayments] = useState("");
   const [cancelJoin, setCancelJoin] = useState("");
   const [billNumber, setBillNumber] = useState("");
+  const [billerCode, setBillerCode] = useState("");
   const [paymentData, setPaymentData] = useState({
     street: "",
     city: "",
@@ -61,13 +62,16 @@ const CommunityPayment = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         if (res.data.actions) {
           setLinkPayments(res.data.actions[1].url);
           setCancelJoin(res.data.actions[3].url);
           setShowSuccess(true);
+        } else if (res.data.va_numbers) {
+          setBillNumber(res.data.va_numbers.va_number);
+          setShowSuccessVA(true);
         } else {
-          setBillNumber(res.data.bill_number);
+          setBillNumber(res.data.bill_key);
+          setBillerCode(res.data.biller_code);
           setShowSuccessVA(true);
         }
       })
@@ -194,6 +198,13 @@ const CommunityPayment = () => {
         </Modal.Header>
         <Modal.Body>
           Silahkan Lanjutkan Pembayaran dengan cara transfer ke nomor Virtual Account berikut: <br /> <span className="fw-bold fs-5">{billNumber}</span>
+          {billerCode ? (
+            <>
+              <br /> <p className="fw-bold fs-5">Biller Code: {billerCode}</p>
+            </>
+          ) : (
+            <></>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button

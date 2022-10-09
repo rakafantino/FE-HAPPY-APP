@@ -128,7 +128,7 @@ function CommunityEvent() {
                     <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3 d-none d-md-block" style={{ width: "15.5rem", height: "auto" }} />
                     <Stack className="gap-2 ms-4 text-start">
                       <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
-                      <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>
+                      <Card.Text className="fw-semibold fs-6 ">{event.descriptions.slice(0, 80)}...</Card.Text>
                     </Stack>
                     <Stack className="justify-content-between ms-4 text-end">
                       <Card.Text className="fw-semibold fs-6 ">

@@ -53,7 +53,7 @@ const Login = () => {
       <Row className="rowreg">
         <Col lg={{ span: 7, offset: 0 }}>
           <div href="#">
-            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className="imgreg img-fluid" alt="logo" />
+            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className="imgreg img-fluid d-none d-md-block" alt="logo" />
           </div>
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="colreg2">

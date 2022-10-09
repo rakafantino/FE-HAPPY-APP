@@ -1,33 +1,33 @@
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import cookie from "js-cookie";
-import React, { useState } from "react";
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import "../styles/Login.css";
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import cookie from 'js-cookie';
+import React, { useState } from 'react';
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import '../styles/Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const submitLogin = async () => {
     await axios
-      .post("https://tugas.website/login", {
+      .post('https://tugas.website/login', {
         email,
         password,
       })
       .then(async function (response) {
-        cookie.set("token", response.data.access_token);
+        cookie.set('token', response.data.access_token);
         await Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Success Login",
+          icon: 'success',
+          title: 'Success',
+          text: 'Success Login',
         });
-        navigate("/community");
+        navigate('/community');
       })
       .catch(function (error) {
         setError(error.response.data.message);
@@ -38,13 +38,13 @@ const Login = () => {
       <Row className="rowlog">
         <Col lg={{ span: 7, offset: 0 }}>
           <div href="#">
-            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className="imglog" alt="logo" />
+            <img src="https://images.unsplash.com/photo-1530021232320-687d8e3dba54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" className="imglog d-none d-md-block" alt="logo" />
           </div>
         </Col>
         <Col lg={{ span: 5, offset: 0 }} className="collog2">
           <h1>Welcome to Happy App!</h1>
           {error ? (
-            <Alert variant={"danger"}>
+            <Alert variant={'danger'}>
               <FontAwesomeIcon icon={faBell} size="1x" flip className="me-2" />
               {error}
             </Alert>

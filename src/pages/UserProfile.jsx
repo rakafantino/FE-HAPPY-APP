@@ -247,13 +247,19 @@ function UserProfile() {
                 <>
                   {userCommunities.map((community) => {
                     return (
-                      <Col key={community.id} onClick={() => handleDetailCommunity(community.id)}>
+                      <Col key={community.id}>
                         <Card className="text-center mt-3 shadow hover">
-                          <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
+                          <Card.Header className="fw-bold fs-5 bg-primary text-white" onClick={() => handleDetailCommunity(community.id)}>
+                            Community
+                          </Card.Header>
                           <Card.Body className="d-flex">
-                            <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
+                            <div className="overflow-hidden d-flex align-items-center justify-content-center" style={{ width: "17rem", height: "17rem" }} onClick={() => handleDetailCommunity(community.id)}>
+                              <Card.Img variant="left" src={community.logo} className="img-fluid rounded w-100 h-auto" style={{ objectFit: "fill" }} />
+                            </div>
                             <Stack className="gap-2">
-                              <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">{community.title}</Card.Text>
+                              <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start" onClick={() => handleDetailCommunity(community.id)}>
+                                {community.title}
+                              </Card.Text>
                             </Stack>
                             {community.role === "admin" ? (
                               <Button

@@ -52,7 +52,9 @@ function EventList() {
                   <Card className="text-center mt-3 shadow hover" onClick={() => handleDetailEvent(event.id)} key={event.id}>
                     <Card.Header className="fw-bold fs-5 bg-primary text-white">Event</Card.Header>
                     <Card.Body className="d-flex">
-                      <Card.Img variant="left" src={event.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
+                      <div className="overflow-hidden d-flex align-items-center justify-content-center" style={{ width: "17rem", height: "17rem" }}>
+                        <Card.Img variant="left" src={event.logo} className="thumbnail rounded w-100 h-auto" style={{ objectFit: "cover" }} />
+                      </div>
                       <Stack className="gap-2 ms-4 text-start">
                         <Card.Title className="fw-semibold fs-4 ">{event.title}</Card.Title>
                         <Card.Text className="fw-semibold fs-6 ">{event.descriptions}</Card.Text>

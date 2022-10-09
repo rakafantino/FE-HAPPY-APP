@@ -118,9 +118,15 @@ const DetailEvent = () => {
                 </span>
               </ListGroup.Item>
             </ListGroup>
-            <Button className="mt-3" onClick={() => setModalShow(true)}>
-              Join Event
-            </Button>
+            {detailEvent.status === "not join" ? (
+              <Button className="mt-3" onClick={() => setModalShow(true)}>
+                Join Event
+              </Button>
+            ) : (
+              <Button className="mt-3" onClick={() => setModalShow(true)} disabled>
+                Join Event
+              </Button>
+            )}
           </Col>
         </Row>
       </Container>

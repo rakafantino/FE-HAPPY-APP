@@ -16,11 +16,11 @@ const ProductCard = ({ item }) => {
   };
 
   return (
-    <div className="divpc d-flex">
+    <div className="divpc d-flex overflow-hidden">
       <Card className="cardpc1 hover" onClick={() => handleDetailProduct(item.id)}>
         <Card.Img variant="top" src={item.photo} className="cardimgpc1" />
         <Card.Body>
-          <Card.Title>{item.name}</Card.Title>
+          <Card.Title className="fw-semibold">{item.name.slice(0, 12)}...</Card.Title>
           <Card.Text>
             Price:
             <span>

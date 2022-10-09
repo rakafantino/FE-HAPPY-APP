@@ -80,8 +80,6 @@ const CommunityPayment = () => {
     getCartDetail();
   }, []);
 
-  console.log(cartId, paymentData);
-
   return (
     <>
       <TopNav />
@@ -95,7 +93,7 @@ const CommunityPayment = () => {
           <Card.Body className="d-flex">
             <Stack className="gap-2 ms-4 text-start w-50">
               <Card.Title className="fw-semibold fs-4 ">Item Name</Card.Title>
-              <Card.Text className="fw-semibold">
+              <div className="fw-semibold">
                 <Form>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Street</Form.Label>
@@ -110,7 +108,7 @@ const CommunityPayment = () => {
                     <Form.Control type="text" placeholder="DKI Jakarta" onChange={(e) => setPaymentData({ ...paymentData, province: e.target.value })} />
                   </Form.Group>
                 </Form>
-              </Card.Text>
+              </div>
             </Stack>
           </Card.Body>
         </Card>
@@ -118,13 +116,13 @@ const CommunityPayment = () => {
           <Card.Header className="fw-bold fs-5 bg-primary text-white">Payment Method</Card.Header>
           <Card.Body className="d-flex">
             <Stack className="gap-2 ms-4 text-start w-50">
-              <Card.Text className="fw-semibold">
+              <div className="fw-semibold">
                 <Form.Group onChange={(e) => setPaymentData({ ...paymentData, type_payment: e.target.value })}>
                   <Form.Check label="GOPAY" type="radio" name="group1" value="GOPAY" />
                   <Form.Check label="BCA Virtual Account" type="radio" name="group1" value="BCA Virtual Account" />
-                  <Form.Check label="Mandiri Virtual Account" type="radio" name="group1" value="MANDIRI Virtual Account" />
+                  <Form.Check label="Mandiri Virtual Account" type="radio" name="group1" value="Mandiri Virtual Account" />
                 </Form.Group>
-              </Card.Text>
+              </div>
             </Stack>
           </Card.Body>
         </Card>
@@ -133,18 +131,20 @@ const CommunityPayment = () => {
           <Card.Body className="d-flex">
             <Stack className="gap-2 ms-4 text-start w-50">
               <Card.Text className="fw-semibold">
-                <h5>
+                <span className="fw-semibold fs-5">
                   Total Item : <span> {cartDetail.jumlah} </span>
-                </h5>
-                <h5>
+                </span>
+                <br />
+                <span className="fw-semibold fs-5">
                   Shipping : <span> Free </span>
-                </h5>
-                <h5>
+                </span>
+                <br />
+                <span className="fw-semibold fs-5">
                   Total Price :
                   <span>
                     <NumericFormat value={cartDetail.total} displayType={"text"} thousandSeparator={true} prefix={" Rp."} />
                   </span>
-                </h5>
+                </span>
               </Card.Text>
             </Stack>
           </Card.Body>

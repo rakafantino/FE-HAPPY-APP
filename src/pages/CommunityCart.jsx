@@ -30,7 +30,6 @@ const CommunityCart = () => {
       .then((res) => {
         setCommunityCart(res.data.listcarts);
         setCommunityDetails(res.data.community);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -131,7 +130,11 @@ const CommunityCart = () => {
         </Modal.Header>
         <Modal.Body>
           {communityMembers.map((member) => {
-            return <h5 className="text-capitalize">{member}</h5>;
+            return (
+              <h5 className="text-capitalize" key={member}>
+                {member}
+              </h5>
+            );
           })}
         </Modal.Body>
         <Modal.Footer>

@@ -41,11 +41,10 @@ function CommunityDetail() {
       })
       .then((res) => {
         setCommunityMembers(res.data.data);
-        setFeedContent("");
       })
       .catch((err) => {
         console.error(err);
-        setFeedContent("");
+        
       });
   };
 
@@ -143,7 +142,11 @@ function CommunityDetail() {
         </Modal.Header>
         <Modal.Body>
           {communityMembers.map((member) => {
-            return <h5 className="text-capitalize">{member}</h5>;
+            return (
+              <h5 className="text-capitalize" key={member}>
+                {member}
+              </h5>
+            );
           })}
         </Modal.Body>
         <Modal.Footer>

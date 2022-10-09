@@ -48,7 +48,6 @@ const CommunityStore = () => {
       .then((res) => {
         setCommunityStore(res.data.product);
         setCommunityDetails(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -125,7 +124,7 @@ const CommunityStore = () => {
           <>
             {communityStore.map((item) => {
               return (
-                <div>
+                <div key={item.id}>
                   <ProductCard item={item} />
                 </div>
               );
@@ -148,7 +147,11 @@ const CommunityStore = () => {
         </Modal.Header>
         <Modal.Body>
           {communityMembers.map((member) => {
-            return <h5 className="text-capitalize">{member}</h5>;
+            return (
+              <h5 className="text-capitalize" key={member}>
+                {member}
+              </h5>
+            );
           })}
         </Modal.Body>
         <Modal.Footer>

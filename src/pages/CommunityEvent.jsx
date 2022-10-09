@@ -41,7 +41,6 @@ function CommunityEvent() {
 
     setCommunityEvent(res.data.event);
     setCommunityDetails(res.data);
-    console.log(res);
   };
 
   const getCommunityMembers = async () => {

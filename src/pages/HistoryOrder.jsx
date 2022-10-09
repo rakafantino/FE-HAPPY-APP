@@ -18,7 +18,6 @@ function HistoryOrder() {
         },
       })
       .then((res) => {
-        console.log(res);
         setOrderHistory(res.data.history);
       })
       .catch((err) => {

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { BsCalendar2Date } from "react-icons/bs";
+import { MdPlace } from "react-icons/md";
 import { NumericFormat } from "react-number-format";
 import { useLocation } from "react-router-dom";
 import CommunityNavbar from "../components/CommunityNavbar";
@@ -59,8 +60,13 @@ const DetailEvent = () => {
           setCancelJoin(res.data.data.actions[3].url);
           setShowSuccess(true);
         } else {
-          setBillNumber(res.data.data.bill_number);
-          setShowSuccessVA(true);
+          if (res.data.data.bill_number) {
+            setBillNumber(res.data.data.bill_number);
+            setShowSuccessVA(true);
+          } else {
+            setBillNumber(res.data.data.bill_key);
+            setShowSuccessVA(true);
+          }
         }
       })
       .catch((err) => {
@@ -85,6 +91,11 @@ const DetailEvent = () => {
             <p className="pde1 mb-3">
               <BsCalendar2Date className="me-2" />
               {detailEvent.date_event}
+            </p>
+            <h5>Location Event</h5>
+            <p className="pde1 mb-3">
+              <MdPlace className="me-2" />
+              {detailEvent.location}
             </p>
 
             <h6>Event Organizer</h6>
@@ -120,7 +131,7 @@ const DetailEvent = () => {
           <Form.Group controlId="formBasicRadio" onChange={(e) => setPayments(e.target.value)}>
             <Form.Check label="GOPAY" name="group1" type="radio" value="GOPAY" />
             <Form.Check label="BCA Virtual Account" name="group1" type="radio" value="BCA Virtual Account" />
-            <Form.Check label="Mandiri Virtual Account" name="group1" type="radio" value="MANDIRI Virtual Account" />
+            <Form.Check label="Mandiri Virtual Account" name="group1" type="radio" value="Mandiri Virtual Account" />
           </Form.Group>
         </Modal.Body>
         <Modal.Header>

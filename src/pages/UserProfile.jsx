@@ -243,37 +243,45 @@ function UserProfile() {
               </Col>
             </Row>
             <Row className="d-flex flex-column">
-              {userCommunities.map((community) => {
-                return (
-                  <Col key={community.id} onClick={() => handleDetailCommunity(community.id)}>
-                    <Card className="text-center mt-3 shadow hover">
-                      <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
-                      <Card.Body className="d-flex">
-                        <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
-                        <Stack className="gap-2">
-                          <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">{community.title}</Card.Text>
-                        </Stack>
-                        {community.role === "admin" ? (
-                          <Button
-                            size="sm"
-                            className="float-end w-25 h-25 my-auto"
-                            onClick={() => {
-                              setShowEditCommunity(true);
-                              setGetCommunityId(community.id);
-                            }}
-                          >
-                            Edit Community
-                          </Button>
-                        ) : (
-                          <Button size="sm" className="float-end w-25 h-25 my-auto" disabled>
-                            Edit Community
-                          </Button>
-                        )}
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                );
-              })}
+              {userCommunities ? (
+                <>
+                  {userCommunities.map((community) => {
+                    return (
+                      <Col key={community.id} onClick={() => handleDetailCommunity(community.id)}>
+                        <Card className="text-center mt-3 shadow hover">
+                          <Card.Header className="fw-bold fs-5 bg-primary text-white">Community</Card.Header>
+                          <Card.Body className="d-flex">
+                            <Card.Img variant="left" src={community.logo} className="img-fluid rounded ms-3" style={{ width: "15.5rem", height: "auto" }} />
+                            <Stack className="gap-2">
+                              <Card.Text className="fw-semibold fs-6 ms-3 my-auto text-start">{community.title}</Card.Text>
+                            </Stack>
+                            {community.role === "admin" ? (
+                              <Button
+                                size="sm"
+                                className="float-end w-25 h-25 my-auto"
+                                onClick={() => {
+                                  setShowEditCommunity(true);
+                                  setGetCommunityId(community.id);
+                                }}
+                              >
+                                Edit Community
+                              </Button>
+                            ) : (
+                              <Button size="sm" className="float-end w-25 h-25 my-auto" disabled>
+                                Edit Community
+                              </Button>
+                            )}
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    );
+                  })}
+                </>
+              ) : (
+                <div className="d-flex justify-content-center align-items-center vh-100">
+                  <h5>You are not join any community</h5>
+                </div>
+              )}
             </Row>
           </Container>
         </>

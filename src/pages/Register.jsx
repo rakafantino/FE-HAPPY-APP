@@ -69,27 +69,27 @@ const Login = () => {
           <Form>
             <Form.Group className="mb-2" controlId="formFullName">
               <Form.Label>Full Name</Form.Label>
-              <Form.Control type="text" placeholder="John Due" onChange={(e) => setName(e.target.value)} value={name} />
+              <Form.Control type="text" onChange={(e) => setName(e.target.value)} value={name} />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="johndue" onChange={(e) => setUsername(e.target.value)} value={username} />
+              <Form.Control type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="johndue@gmail.com" onChange={(e) => setEmail(e.target.value)} value={email} />
+              <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupGender">
               <Form.Label>Gender</Form.Label>
               <Form.Select className="mb-2" aria-label="Default select example" onChange={(e) => setGender(e.target.value)} value={gender}>
-                <option>Gender</option>
+                <option>Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
+              <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
             </Form.Group>
           </Form>
           <div>

@@ -43,7 +43,9 @@ function HistoryOrder() {
                 <Card className="text-center mt-3 shadow ">
                   <Card.Header className="fw-bold fs-5 bg-primary text-white">Order</Card.Header>
                   <Card.Body className="d-flex">
-                    <Card.Img variant="left" src={historyItem.photo} className="img-fluid rounded ms-3" />
+                    <div className="overflow-hidden d-flex align-items-center justify-content-center" style={{ width: "17rem", height: "17rem" }}>
+                      <Card.Img variant="left" src={historyItem.photo} className="img-fluid rounded w-100 h-auto" style={{ objectFit: "fill" }} />
+                    </div>
                     <Stack className="gap-2 ms-4 text-start">
                       <Card.Title className="fw-semibold fs-4 ">{historyItem.name}</Card.Title>
                       <Card.Text className="fw-semibold fs-6 ">Buyer Name: {historyItem.buyer}</Card.Text>

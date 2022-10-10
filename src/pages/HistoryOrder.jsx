@@ -59,8 +59,8 @@ function HistoryOrder() {
             })}
           </>
         ) : (
-          <div>
-            <h5>Tidak ada Order History</h5>
+          <div className="d-flex justify-content-center align-items-center vh-100">
+            <h5>No history order yet</h5>
           </div>
         )}
       </Container>

@@ -1,9 +1,8 @@
 # Happy App
 (https://happyapp-ten.vercel.app/)
 
-Happy App ini dibuat dalam tujuan untuk menyelesaikan tugas Project Capstone Team Front End dan Back End yang diberikan oleh Alta. Adapun kami diharuskan untuk memenuhi nilai MVP (Minimun Viable Product). Di dalamnya kami diharuskan untuk membuat Feature CRUD (Create, Read, Upload, Delete) dan Payment Gateway.
-
-## Kandungan yang berada di dalam repo, yaitu :
+this is an application where people with the same interests gather into a community in which there is a community feed where people discuss certain topics, event lists and even community stores for people to shop for merchandise, and this application has also been integrated with a payment gateway called Midtrans
+## Tech that we use in this project, yaitu :
 
 ### 1. [React JS](https://reactjs.org/docs/create-a-new-react-app.html)
 ### 2. [React Router Dom](https://www.npmjs.com/package/react-router-dom)
